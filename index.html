@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Morning Work – Third Grade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eaf4ff;--card:#ffffff;--ink:#1d2b53;--mute:#5a6685;--line:#cfe0f5;
+  --bus:#ffc933;--bus-ink:#1d2b53;--ok:#1f9d55;--okbg:#dff5e8;--bad:#d1434b;--badbg:#fde6e7;
+  --read:#2f6fdb;--math:#1f9d55;--vocab:#8a4fd3;--facts:#e8590c;--fun:#0c8fa3;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101a33;--card:#1a2748;--ink:#eef3ff;--mute:#a4b1d4;--line:#2d3d6b;
+    --bus:#ffc933;--bus-ink:#1d2b53;--ok:#5fd68f;--okbg:#17402b;--bad:#ff8a90;--badbg:#4a2227;
+    --read:#7aa7ff;--math:#5fd68f;--vocab:#c19bff;--facts:#ff9a5c;--fun:#4fd2e6;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101a33;--card:#1a2748;--ink:#eef3ff;--mute:#a4b1d4;--line:#2d3d6b;
+  --bus:#ffc933;--bus-ink:#1d2b53;--ok:#5fd68f;--okbg:#17402b;--bad:#ff8a90;--badbg:#4a2227;
+  --read:#7aa7ff;--math:#5fd68f;--vocab:#c19bff;--facts:#ff9a5c;--fun:#4fd2e6;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:'Fredoka','Trebuchet MS','Segoe UI',system-ui,sans-serif;font-size:18px;line-height:1.4;-webkit-text-size-adjust:100%}
+#app{max-width:720px;margin:0 auto;padding:16px 16px 40px}
+h1,h2,h3{margin:0 0 8px;line-height:1.15}
+h1{font-size:2.1rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:600}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0 0 10px}
+.mute{color:var(--mute)}
+.small{font-size:.85rem}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+.btn{font:inherit;font-weight:600;font-size:1.15rem;border:0;border-radius:16px;padding:14px 22px;background:var(--bus);color:var(--bus-ink);cursor:pointer;box-shadow:0 4px 0 rgba(29,43,83,.25);min-height:52px}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(29,43,83,.25)}
+.btn.block{display:block;width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none;font-size:1rem;padding:10px 16px;min-height:44px}
+.btn.sm{font-size:1rem;padding:10px 16px;min-height:44px}
+.btn:focus-visible,.choice:focus-visible,.chip:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--read);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 16px}
+.chip{font:inherit;font-weight:500;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:10px 18px;cursor:pointer;min-height:44px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.pill{display:inline-block;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:500;font-size:.9rem}
+.prog{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:14px}
+.prog>span{display:block;height:100%;background:var(--accent,var(--bus));border-radius:99px;transition:width .3s}
+.accentbar{border-left:10px solid var(--accent);}
+.passage{background:var(--card);border:2px solid var(--line);border-left:10px solid var(--accent);border-radius:16px;padding:16px 18px;margin-bottom:14px;font-size:1.1rem;line-height:1.55}
+.passage h3{color:var(--accent)}
+.qtext{font-size:1.3rem;font-weight:600;margin:6px 0 14px}
+.choices{display:grid;gap:10px}
+.choice{font:inherit;font-weight:500;font-size:1.15rem;text-align:left;background:var(--card);color:var(--ink);border:3px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;min-height:56px}
+.choice.ok{background:var(--okbg);border-color:var(--ok)}
+.choice.bad{background:var(--badbg);border-color:var(--bad)}
+.choice[disabled]{cursor:default}
+.fact{font-size:3rem;font-weight:700;text-align:center;margin:10px 0 16px;letter-spacing:.02em}
+.facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.facts-grid .choice{font-size:2rem;font-weight:700;text-align:center;padding:18px 8px;min-height:80px}
+.tbar{height:16px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:6px}
+.tbar>span{display:block;height:100%;width:100%;background:var(--facts);border-radius:99px}
+.fb{margin-top:14px;padding:14px 16px;border-radius:16px;font-weight:500}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.bad{background:var(--badbg);color:var(--bad)}
+.fb .ex{color:var(--ink);font-weight:400;margin-top:4px}
+.big{font-size:4rem;line-height:1;margin-bottom:8px}
+.center{text-align:center}
+.stars{font-size:3rem;letter-spacing:.1em}
+.score{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:2px dashed var(--line)}
+.score:last-child{border:0}
+.score b{font-size:1.2rem}
+label.f{display:block;font-weight:600;margin:14px 0 6px}
+input[type=text],input[type=number],input[type=date],input[type=password],select,textarea{font:inherit;width:100%;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card);color:var(--ink);min-height:44px}
+textarea{min-height:120px}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.row>*{flex:1 1 140px}
+.cbl{display:flex;align-items:center;gap:8px;padding:6px 0;font-weight:500}
+.cbl input{width:22px;height:22px;flex:none}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px}
+.tabs .chip{white-space:nowrap}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:8px 10px;border-bottom:2px solid var(--line);text-align:left;white-space:nowrap}
+.note{background:var(--card);border:2px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:.95rem;color:var(--mute)}
+.linkbtn{background:none;border:0;color:var(--mute);font:inherit;text-decoration:underline;cursor:pointer;padding:12px 0}
+.miss{padding:10px 0;border-bottom:2px dashed var(--line)}
+.miss:last-child{border:0}
+details.res{border-bottom:2px dashed var(--line);padding:10px 0}
+details.res summary{cursor:pointer;line-height:1.6}
+.guide h3{margin-top:18px}
+.guide ol,.guide ul{margin:0 0 10px;padding-left:22px}
+.guide li{margin-bottom:6px}
+@media print{body{background:#fff;color:#000}.noprint{display:none!important}.card{border:1px solid #999;break-inside:avoid}#app{max-width:none}}
+@media (prefers-reduced-motion:reduce){.prog>span{transition:none}.btn:active{transform:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* qrcode-generator, (c) 2009 Kazuhiko Arase, MIT license. "QR Code" is a registered trademark of DENSO WAVE INCORPORATED. */
+var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1})},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(o*r,n*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)};
+/* ---------- edition / license settings (seller edits these) ---------- */
+const EDITION={name:'2026–27 Edition',expires:'2027-06-30',renew:'Find the newest edition in your TPT purchases.'};
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function seedFrom(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return(h^=h>>>16)>>>0}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const rngFor=s=>mulberry(seedFrom(s));
+const R=(g,a,b)=>a+Math.floor(g()*(b-a+1));
+const pick=(g,arr)=>arr[Math.floor(g()*arr.length)];
+function shuffle(g,arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(g()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function mc(g,ans,wrong){
+  const a=String(ans),num=a!==''&&!isNaN(+a),o=[a];
+  const add=w=>{w=String(w);if(o.includes(w))return;if(num&&(isNaN(+w)||+w<0))return;o.push(w)};
+  wrong.forEach(add);
+  if(num){let k=1;while(o.length<4&&k<30){add(+a+k);add(+a-k);k++}}
+  const ch=shuffle(g,o.slice(0,4));
+  return{ch,a:ch.indexOf(a)};
+}
+const mk=(g,q,ans,wrong,std,exp)=>Object.assign({type:'mc',q,std,exp},mc(g,ans,wrong));
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const todayStr=()=>ymd(new Date());
+const expired=()=>!!EDITION.expires&&todayStr()>EDITION.expires;
+const addDays=(ds,n)=>{const d=new Date(ds+'T12:00:00');d.setDate(d.getDate()+n);return ymd(d)};
+const dayNum=ds=>Math.floor(new Date(ds+'T12:00:00')/864e5);
+const MONTHS=['September','October','November','December','January','February','March','April','May'];
+const MS=['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+function autoLevel(ds){const m=new Date(ds+'T12:00:00').getMonth();return({8:0,9:1,10:2,11:3,0:4,1:5,2:6,3:7,4:8,5:8,6:0,7:0})[m]}
+function fmt(mins){let h=Math.floor(mins/60)%12;if(h===0)h=12;return h+':'+String(mins%60).padStart(2,'0')}
+
+/* ---------- storage ---------- */
+const SKEY='morningwork_grade3_v1';
+let S;
+function load(){let o=null;try{o=JSON.parse(localStorage.getItem(SKEY))}catch(e){}S=Object.assign({pin:'1234',className:'',hostURL:'',roster:[],plans:{},defaults:{},results:[]},o||{})}
+let storageOK=true;try{localStorage.setItem(SKEY+'_t','1');localStorage.removeItem(SKEY+'_t')}catch(e){storageOK=false}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(S))}catch(e){storageOK=false}}
+
+/* ---------- MATH (Common Core Grade 3, Sep -> May) ---------- */
+const MLAB=[
+ ['Round to 10 or 100','Add within 1000','Place value'],
+ ['Equal groups','Subtract within 1000','Repeated addition'],
+ ['Multiply by 2, 5, 10','Share equally','Add with regrouping'],
+ ['Multiply by 3 and 4','Unknown factor','Divide'],
+ ['Two-step problems','Multiply by multiples of 10','Number patterns'],
+ ['Fractions of a whole','Compare unit fractions','Whole as a fraction'],
+ ['Equivalent fractions','Compare fractions','Whole numbers as fractions'],
+ ['Elapsed time','Mass','Minutes elapsed'],
+ ['Area','Perimeter','Bar graph']
+];
+const MG=[
+[
+ g=>{let n,p;if(g()<.5){p=10;n=R(g,12,98)*10+pick(g,[1,2,3,4,6,7,8,9])}else{p=100;n=R(g,1,9)*100+(g()<.5?R(g,11,49):R(g,51,99))}const ans=Math.round(n/p)*p;return mk(g,`Round ${n} to the nearest ${p}.`,ans,[ans+p,ans-p,n,ans+2*p],'3.NBT.A.1',`${n} is closest to ${ans}.`)},
+ g=>{const a=R(g,120,480),b=R(g,120,450),s=a+b;return mk(g,`${a} + ${b} = ?`,s,[s+10,s-10,s+100,s-100],'3.NBT.A.2',`${a} + ${b} = ${s}.`)},
+ g=>{const d=shuffle(g,[1,2,3,4,5,6,7,8,9]).slice(0,3),pos=R(g,0,2),m=[100,10,1][pos],n=d[0]*100+d[1]*10+d[2],dg=d[pos],ans=dg*m;return mk(g,`What is the value of the digit ${dg} in ${n}?`,ans,[dg,dg*10,dg*100,dg*1000],'3.NBT.A.1',`The ${dg} is in the ${['hundreds','tens','ones'][pos]} place, so it is worth ${ans}.`)}
+],[
+ g=>{const A=R(g,2,5),B=R(g,2,5);return mk(g,`There are ${A} plates. Each plate has ${B} cookies. How many cookies in all?`,A*B,[A+B,A*B+B,A*B-A,A*B+1],'3.OA.A.1',`${A} groups of ${B} is ${A} × ${B} = ${A*B}.`)},
+ g=>{const a=R(g,400,900),b=R(g,110,390),d=a-b;return mk(g,`${a} − ${b} = ?`,d,[d+10,d-10,d+100,d-100],'3.NBT.A.2',`${a} − ${b} = ${d}.`)},
+ g=>{const n=R(g,3,5);let m=R(g,2,6);if(m===n)m=n+1;return mk(g,`${Array(n).fill(m).join(' + ')} is the same as which multiplication?`,`${n} × ${m}`,[`${m} × ${m}`,`${n} + ${m}`,`${n+1} × ${m}`,`${n} × ${m+1}`],'3.OA.A.1',`${n} groups of ${m} is ${n} × ${m}.`)}
+],[
+ g=>{const F=pick(g,[2,5,10]),N=R(g,2,9);return mk(g,`Each pack has ${F} pencils. Mia buys ${N} packs. How many pencils does she have?`,F*N,[F*N+F,F*N-F,F+N,F*N+1],'3.OA.A.3',`${N} × ${F} = ${F*N}.`)},
+ g=>{const N=pick(g,[2,5,10]),F=R(g,2,9);return mk(g,`${F*N} stickers are shared equally among ${N} students. How many stickers does each student get?`,F,[F+1,F-1,N,F+2],'3.OA.A.2',`${F*N} ÷ ${N} = ${F}.`)},
+ g=>{const a=R(g,15,59)*10+R(g,5,9),b=R(g,15,39)*10+R(g,5,9),s=a+b;return mk(g,`${a} + ${b} = ?`,s,[s+10,s-10,s+100,s-1],'3.NBT.A.2',`${a} + ${b} = ${s}. Remember to regroup!`)}
+],[
+ g=>{const F=pick(g,[3,4]),N=R(g,3,9);return mk(g,`A garden has ${N} rows. Each row has ${F} plants. How many plants are in the garden?`,F*N,[F*N+F,F*N-F,F+N,F*N+1],'3.OA.A.3',`${N} × ${F} = ${F*N}.`)},
+ g=>{const F=R(g,3,9),N=R(g,3,9);return mk(g,`${F} × ? = ${F*N}`,N,[N+1,N-1,N+2,F],'3.OA.A.4',`${F} × ${N} = ${F*N}.`)},
+ g=>{const F=R(g,3,9),N=R(g,3,9);return mk(g,`${F*N} ÷ ${F} = ?`,N,[N+1,N-1,F,N+2],'3.OA.B.6',`${F} × ${N} = ${F*N}, so ${F*N} ÷ ${F} = ${N}.`)}
+],[
+ g=>{const A=R(g,3,6),B=R(g,3,6),T=A*B,C=R(g,3,Math.min(9,T-2));return mk(g,`Sam has ${A} bags with ${B} marbles in each bag. He gives away ${C} marbles. How many marbles are left?`,T-C,[T+C,T,T-C+1,T-C-1],'3.OA.D.8',`First ${A} × ${B} = ${T}. Then ${T} − ${C} = ${T-C}.`)},
+ g=>{const A=R(g,2,9),B=R(g,2,9);return mk(g,`${A} × ${B*10} = ?`,A*B*10,[A*B,A*B*100,A*B*10+10,A*B*10-10],'3.NBT.A.3',`${A} × ${B} = ${A*B}, then times 10 is ${A*B*10}.`)},
+ g=>{const st=pick(g,[3,4,6,7,8,9]),s=R(g,2,12),seq=[s,s+st,s+2*st,s+3*st],ans=s+4*st;return mk(g,`What number comes next? ${seq.join(', ')}, ___`,ans,[ans+st,ans-1,ans+1,ans-st],'3.OA.D.9',`The pattern adds ${st} each time.`)}
+],[
+ g=>{const N=pick(g,[3,4,6,8]),K=R(g,1,N-1);return mk(g,`A pizza is cut into ${N} equal slices. ${K} ${K>1?'slices are':'slice is'} eaten. What fraction of the pizza was eaten?`,`${K}/${N}`,[`${N-K}/${N}`,`${N}/${K}`,`${K+1}/${N}`,`1/${N}`],'3.NF.A.1',`${K} out of ${N} equal parts is ${K}/${N}.`)},
+ g=>{const ds=[2,3,4,6,8],i=R(g,0,3),j=R(g,i+1,4);return mk(g,`Which fraction is greater?`,`1/${ds[i]}`,[`1/${ds[j]}`,'They are equal'],'3.NF.A.3d',`When the top number is the same, fewer parts means bigger pieces. 1/${ds[i]} is greater.`)},
+ g=>{const N=R(g,2,8);return mk(g,`Which fraction is equal to 1 whole?`,`${N}/${N}`,[`1/${N}`,`${N}/1`,`${N+1}/${N}`],'3.NF.A.3c',`${N} out of ${N} equal parts is the whole thing.`)}
+],[
+ g=>{const[a,b]=pick(g,[[1,2],[1,3],[1,4],[2,3],[3,4]]),k=pick(g,[2,3]);return mk(g,`${a}/${b} = ?/${b*k}`,a*k,[a*k+1,a*k-1,a+k,a],'3.NF.A.3b',`Multiply the top and bottom by ${k}: ${a*k}/${b*k}.`)},
+ g=>{const D=pick(g,[4,6,8]),A=R(g,1,D-1);let B=R(g,1,D-1);if(B===A)B=A===D-1?1:A+1;const gt=g()<.5,ans=gt?Math.max(A,B):Math.min(A,B),oth=gt?Math.min(A,B):Math.max(A,B);return mk(g,`Which fraction is ${gt?'greater':'less'}: ${A}/${D} or ${B}/${D}?`,`${ans}/${D}`,[`${oth}/${D}`,'They are equal'],'3.NF.A.3d',`The bottom numbers match, so compare the top numbers.`)},
+ g=>{const W=R(g,2,4),D=pick(g,[3,5]);return mk(g,`Which fraction is equal to ${W}?`,`${W*D}/${D}`,[`${W}/${D}`,`${D}/${W}`,`${W+D}/${D}`],'3.NF.A.3c',`${W} wholes with ${D} parts each is ${W*D}/${D}.`)}
+],[
+ g=>{const h=R(g,8,10),m=pick(g,[0,15,30,45]),d=pick(g,[20,25,30,40,45]),st=h*60+m,en=st+d;return mk(g,`Math class starts at ${fmt(st)} and lasts ${d} minutes. What time does it end?`,fmt(en),[fmt(en+10),fmt(en-10),fmt(en+60),fmt(en-5)],'3.MD.A.1',`${fmt(st)} plus ${d} minutes is ${fmt(en)}.`)},
+ g=>{const A=R(g,12,48)*10,B=R(g,12,30)*10,s=A+B;return mk(g,`A bag of apples has a mass of ${A} grams. A bag of pears has a mass of ${B} grams. What is the total mass?`,`${s} g`,[`${s+100} g`,`${s-100} g`,`${A} g`,`${s+10} g`],'3.MD.A.2',`${A} + ${B} = ${s} grams.`)},
+ g=>{const h=R(g,1,5),m=pick(g,[0,15,30]),d=pick(g,[25,35,40,45,50,55]),st=h*60+m,en=st+d;return mk(g,`Practice starts at ${fmt(st)} and ends at ${fmt(en)}. How many minutes long was practice?`,`${d} minutes`,[`${d+5} minutes`,`${d-5} minutes`,`${d+10} minutes`,`${d-10} minutes`],'3.MD.A.1',`From ${fmt(st)} to ${fmt(en)} is ${d} minutes.`)}
+],[
+ g=>{const L=R(g,3,9),W=R(g,2,8);return mk(g,`A rectangle is ${L} units long and ${W} units wide. What is its area?`,`${L*W} square units`,[`${2*(L+W)} square units`,`${L+W} square units`,`${L*W+L} square units`],'3.MD.C.7',`Area = ${L} × ${W} = ${L*W} square units.`)},
+ g=>{const L=R(g,3,9),W=R(g,2,8);return mk(g,`A rectangle is ${L} units long and ${W} units wide. What is its perimeter?`,`${2*(L+W)} units`,[`${L*W} units`,`${L+W} units`,`${2*L+W} units`],'3.MD.D.8',`Add all four sides: ${L} + ${W} + ${L} + ${W} = ${2*(L+W)}.`)},
+ g=>{const A=R(g,8,15),B=R(g,3,A-3);return mk(g,`On a bar graph, pizza got ${A} votes and tacos got ${B} votes. How many more votes did pizza get than tacos?`,A-B,[A+B,A-B+1,A-B-1,B],'3.MD.B.3',`${A} − ${B} = ${A-B}.`)}
+]];
+
+/* ---------- READING (short passages, rising length and complexity) ---------- */
+const RP=[
+[
+ {t:'The New Backpack',x:'Lila got a new blue backpack for school. It had two big pockets and a small zipper pocket. She put her pencils in the small pocket. Every morning, Lila walked to the bus stop with her friend Omar. They liked to count the buses that passed before theirs came. Today the number was seven.',
+  q:[['What color was Lila’s new backpack?','Blue','Red','Green','Yellow'],['Where did Lila put her pencils?','In the small zipper pocket','In her lunch box','In a big pocket','In Omar’s bag'],['What do Lila and Omar like to do at the bus stop?','Count the buses','Read books','Play tag','Draw pictures']]},
+ {t:'Ants at Work',x:'Ants are small, but they are very strong. An ant can carry a crumb that is much bigger than its body. Ants live together in a nest, and each one has a job. Some ants find food. Others take care of the eggs. Working together keeps the nest safe and full of food.',
+  q:[['What can an ant carry?','A crumb bigger than its body','A whole apple','A small rock','A leaf the size of a car'],['What do some ants do?','Find food','Build roads','Teach other ants','Sleep all day'],['What is this passage mostly about?','Ants work together and each has a job','Ants are bigger than other bugs','Ants only eat crumbs','Ants live alone']]}
+],[
+ {t:'The Pumpkin Patch',x:'On Friday, Room 12 went to the pumpkin patch. Hamza wanted the biggest pumpkin he could find. He tugged and pulled, but it would not move. “It is too heavy for one person,” said his teacher. So Hamza and two friends rolled it to the wagon together. Hamza learned that big jobs are easier with help.',
+  q:[['Where did Room 12 go on Friday?','The pumpkin patch','The library','The zoo','The park'],['Why could Hamza not move the pumpkin alone?','It was too heavy','It was stuck in the mud','He was tired','His teacher said no'],['What lesson did Hamza learn?','Big jobs are easier with help','Pumpkins are orange','Always pick small pumpkins','Teachers know everything']]},
+ {t:'Why Leaves Change Color',x:'In fall, many leaves change from green to red, orange, and yellow. Leaves are green because they hold something called chlorophyll. In fall there is less sunlight, so trees stop making chlorophyll. The green fades away, and the other colors show through.',
+  q:[['What makes leaves green?','Chlorophyll','Rain','Cold air','Orange paint'],['Why do trees stop making chlorophyll in fall?','There is less sunlight','They have too much water','The leaves get heavy','Animals eat it'],['In this passage, the word “fades” means…','Slowly goes away','Grows bigger','Turns shiny','Falls down fast']]}
+],[
+ {t:'Grandma’s Soup',x:'When Amina’s grandmother visited from Ethiopia, the whole apartment smelled like warm spices. Grandma stirred a big pot of lentil soup while telling stories about her village. Amina carefully wrote down each step in a notebook. “Someday,” she whispered, “I will make this soup for my own family.”',
+  q:[['What was Grandma cooking?','Lentil soup','Rice and chicken','Vegetable stew','Pancakes'],['Why did Amina write down each step?','She wanted to make the soup herself someday','Her teacher asked her to','She was bored','Grandma made her'],['Which word best describes Amina?','Thoughtful','Careless','Angry','Lazy']]},
+ {t:'The Honeybee Dance',x:'Honeybees can tell their hive-mates where flowers are by dancing. When a bee finds good flowers, it returns and moves in a figure-eight pattern. The angle of the dance shows the direction of the flowers. A longer dance means the flowers are farther away.',
+  q:[['How do honeybees share where flowers are?','They dance','They sing','They leave a trail of honey','They fly in circles around the hive'],['What does the angle of the dance show?','The direction of the flowers','How sweet the flowers are','How many bees to send','What time it is'],['What does a longer dance mean?','The flowers are farther away','The flowers are bigger','The bee is tired','The weather is bad']]}
+],[
+ {t:'Snow Day',x:'Zahra woke up to a quiet, white world. Snow had fallen all night and covered the cars, the trees, and the street. Her phone buzzed with a message: school was closed. Zahra grinned, pulled on her boots, and dashed outside to build a snow fort with her brother. By noon their fort had tall walls and a small tunnel door.',
+  q:[['Why was school closed?','Snow fell all night','The teachers were sick','It was a holiday','The bus broke down'],['What did Zahra do right after she read the message?','She put on her boots and went outside','She went back to sleep','She called her teacher','She cooked breakfast'],['How did Zahra feel about the snow day?','Excited','Worried','Bored','Angry']]},
+ {t:'Penguins Stay Warm',x:'Emperor penguins live in Antarctica, one of the coldest places on Earth. To stay warm, thousands of penguins huddle close together. The penguins on the outside get cold, so they slowly move toward the middle while others take a turn on the edge. This way, every penguin gets a chance to warm up.',
+  q:[['Where do emperor penguins live?','Antarctica','The desert','A rainforest','A farm'],['Why do the penguins move to the middle?','To warm up','To find food','To sleep','To hide from birds'],['What is the main idea?','Penguins huddle and take turns to stay warm','Penguins like the cold','Penguins swim fast','Penguins build nests']]}
+],[
+ {t:'The Lost Mitten',x:'Marcus found a small red mitten on the playground. He looked around, but no one was nearby. He could have kept it in his pocket, but he knew someone was probably missing it. Marcus carried the mitten to the office. The next morning, a kindergartner hugged him and said, “You found my mitten!” Marcus felt proud all day.',
+  q:[['Where did Marcus find the mitten?','On the playground','In the gym','On the bus','In the lunchroom'],['Why did Marcus take the mitten to the office?','He knew someone was probably missing it','He did not like it','His teacher told him to','It was too small for him'],['What is the lesson of this story?','Doing the right thing helps others and feels good','Finders keepers','Always wear mittens','Never go on the playground']]},
+ {t:'How Volcanoes Form',x:'Deep under the ground, rock gets so hot that it melts into a thick liquid called magma. Because magma is lighter than the rock around it, it slowly rises. When pressure builds up, the magma bursts through an opening in Earth’s surface. Once it is outside, it is called lava. Over time, layers of cooled lava build a mountain called a volcano.',
+  q:[['What is melted rock underground called?','Magma','Lava','Ash','Soil'],['What happens when pressure builds up?','Magma bursts through the surface','The ground gets cold','The rock gets lighter','The lava turns to water'],['Which shows the correct order?','Rock melts, magma rises, lava cools into a mountain','Lava cools, rock melts, magma rises','Magma rises, mountain forms, rock melts','Mountain forms, lava flows, rock melts']]}
+],[
+ {t:'Tariku’s Kite',x:'Tariku had never flown a kite before. The first time, it spun in circles and crashed. The second time, a gust of wind snapped the string. Tariku frowned, but his sister reminded him, “Every try teaches you something.” On the third try, he held the string loosely and walked into the wind. The kite lifted slowly, then soared above the field. Tariku laughed out loud.',
+  q:[['What happened the second time Tariku flew the kite?','The string snapped','It spun in circles','It flew high','It got stuck in a tree'],['How did Tariku’s feelings change?','He went from frustrated to joyful','He went from happy to sad','He stayed calm the whole time','He went from proud to bored'],['In this story, “soared” means…','Flew high','Fell down','Spun around','Broke apart']]},
+ {t:'Recycling Paper',x:'Every year, people use millions of sheets of paper. Instead of throwing it away, paper can be recycled. First, workers sort the paper and mix it with water to make a mushy pulp. Next, machines clean the pulp and press it flat. Finally, the pressed pulp dries into new sheets. Recycling paper saves trees and reduces trash.',
+  q:[['What is the first step in recycling paper?','Sort the paper and mix it with water','Press it flat','Dry it into sheets','Cut down trees'],['What does recycling paper save?','Trees','Water only','Ink','Money for buses'],['Why did the author write this passage?','To explain how paper is recycled','To tell a funny story','To sell paper','To describe a forest']]}
+],[
+ {t:'The Spring Garden',x:'Last March, Ms. Dawit’s class planted bean seeds in paper cups. At first, nothing happened, and several students worried the seeds were broken. After nine days, tiny green sprouts pushed up through the soil. Each week, the class measured their plants and recorded the heights in a chart. By April, the tallest bean plant was taller than a ruler.',
+  q:[['Why did some students worry at first?','Nothing seemed to be happening','The cups were too small','The seeds were the wrong color','It was too cold outside'],['How did the class keep track of growth?','They measured and recorded heights in a chart','They took photographs','They guessed','They drew pictures only'],['Which word best describes the class?','Patient','Careless','Impatient','Noisy']]},
+ {t:'Where Does Rain Come From?',x:'Rain is part of the water cycle. The sun warms water in oceans, lakes, and puddles, and some of it turns into invisible vapor that rises into the air. High up, the air is cooler, so the vapor cools and forms tiny droplets. Many droplets together make a cloud. When the droplets become too heavy, they fall as rain. The water then collects again, and the cycle begins once more.',
+  q:[['What turns water into vapor?','The warmth of the sun','Cold wind','Clouds','Rain'],['Why do droplets fall as rain?','They become too heavy','They get cold','The wind blows them','The sun dries them'],['Why does the author call it a “cycle”?','It repeats again and again','It is shaped like a circle','It happens only once','It is fast']]}
+],[
+ {t:'The Library Mystery',x:'Every morning, Mr. Ali noticed that one book was missing from the library shelf. On Monday, it was a book about sharks. On Tuesday, it was a book about space. By Wednesday, he was determined to find the thief. He hid behind a bookcase and watched. Soon, a small first grader tiptoed in, grabbed a book, and read it quietly in the corner. She was not stealing; she simply did not know she had to check books out. Mr. Ali smiled and showed her how.',
+  q:[['Which book was missing on Tuesday?','A book about space','A book about sharks','A book about dogs','A book about trains'],['Why were the books missing?','The girl did not know she had to check them out','Someone was stealing them','They were lost','They were being repaired'],['How did Mr. Ali most likely feel at the end?','Kind and understanding','Angry','Worried','Bored']]},
+ {t:'Fast Cheetahs',x:'The cheetah is the fastest land animal. In just three seconds, it can speed up from standing still to sixty miles per hour. Its long legs, flexible spine, and large lungs help it run. However, a cheetah can only sprint for about thirty seconds before it must rest. Because it tires quickly, a cheetah usually chases prey only when it is already close.',
+  q:[['What helps a cheetah run fast?','Long legs, a flexible spine, and large lungs','Wings and a tail','Sharp claws and fur','A heavy body'],['Why does a cheetah chase prey only when it is close?','It tires quickly','It cannot see far','It is afraid','It is slow at starting'],['Which sentence is a fact from the passage?','A cheetah can sprint for about thirty seconds','Cheetahs are the best animals','Cheetahs are easy to catch','Cheetahs never rest']]}
+],[
+ {t:'The Last Day Letter',x:'Dear Ms. Carter, This year felt like a long journey, and you were our guide. In September, I could barely read a chapter book. Now I read before bed every night, even when my mom says it is time to sleep! Thank you for believing in me, especially on days when I doubted myself. I will miss our morning meetings, but I promise to keep reading all summer. Your student, Idris.',
+  q:[['What can Idris do now that was hard in September?','Read chapter books','Ride a bike','Write a letter','Count to one hundred'],['The author compares the school year to…','A long trip','A race','A game','A storm'],['What is the main message of the letter?','Idris is thankful for his teacher’s help and growth','Idris wants to stop reading','School was too long','Idris is moving away']]},
+ {t:'Bridges Around the World',x:'Bridges help people cross rivers, valleys, and roads. A beam bridge is the simplest type: a flat piece of material rests on supports at each end. An arch bridge curves upward, which spreads weight to the supports. A suspension bridge hangs its roadway from thick cables strung over tall towers, so it can stretch across very wide spaces. Engineers choose a design based on how far the bridge must reach and how much weight it must hold.',
+  q:[['Which bridge hangs its roadway from cables?','Suspension bridge','Beam bridge','Arch bridge','Rope bridge'],['How does an arch bridge spread weight?','It curves upward','It uses cables','It is flat','It floats'],['What do engineers think about when choosing a design?','How far it must reach and how much weight it holds','What color it will be','How many people like it','Where the sun rises']]}
+]];
+
+/* ---------- VOCABULARY ---------- */
+const VB=[
+ [['brave','not afraid'],['gather','to bring together'],['enormous','very big'],['whisper','to speak very softly'],['curious','wanting to know more'],['protect','to keep safe']],
+ [['harvest','to pick crops when they are ready'],['shiver','to shake because of cold'],['invite','to ask someone to come'],['narrow','not wide'],['observe','to watch carefully'],['pale','light in color']],
+ [['familiar','well known'],['journey','a long trip'],['valuable','worth a lot'],['tradition','a custom passed down over time'],['explore','to travel to learn new things'],['swift','very fast']],
+ [['fragile','easily broken'],['generous','happy to give and share'],['shelter','a place that protects you'],['predict','to guess what will happen'],['exhausted','very tired'],['glimpse','a quick look']],
+ [['cooperate','to work together'],['temperature','how hot or cold something is'],['reluctant','not wanting to do something'],['habitat','the natural home of an animal'],['improve','to make better'],['vivid','bright and clear']],
+ [['determined','decided not to give up'],['essential','very important'],['abundant','plentiful, more than enough'],['inspect','to look at closely'],['rapid','happening quickly'],['bewildered','very confused']],
+ [['conserve','to save and not waste'],['distant','far away'],['gradually','little by little'],['adapt','to change to fit a new place'],['evidence','facts that show something is true'],['frequent','happening often']],
+ [['environment','the world around a living thing'],['mysterious','hard to explain'],['reliable','able to be trusted'],['compare','to tell how things are alike'],['scarce','hard to find, not enough'],['capable','able to do something well']],
+ [['persuade','to get someone to agree'],['consequence','what happens because of an action'],['significant','important'],['perspective','a point of view'],['investigate','to look into carefully'],['accomplish','to finish something successfully']]
+];
+
+const P=(t,x,...q)=>({t,x,q});
+const RPX=[
+[ /* September */
+ P('Kofi’s Wiggly Tooth','Kofi had a wiggly tooth for two weeks. At lunch, he bit into a crunchy apple, and the tooth popped out! He held it up and grinned a big, gappy grin. That night, Kofi put the tooth under his pillow and waited. In the morning, a shiny coin was waiting there.',
+  ['How long did Kofi have a wiggly tooth?','Two weeks','Two days','One month','One hour'],['What made the tooth come out?','Biting a crunchy apple','Brushing his teeth','Falling off a bike','Sneezing'],['What was under his pillow in the morning?','A shiny coin','A letter','A toy','A candy']),
+ P('Sunflowers Follow the Sun','Young sunflowers turn their faces toward the sun. In the morning, they face east. During the day, they slowly turn to follow the sun across the sky. By evening, they face west. This helps the plant get as much sunlight as it can.',
+  ['Which way do young sunflowers face in the morning?','East','West','North','South'],['Why do sunflowers follow the sun?','To get as much sunlight as they can','To stay cool','To hide from bees','To dry the rain'],['What is this passage mostly about?','Young sunflowers turn to follow the sun','Sunflowers have yellow petals','Bees love sunflowers','Sunflowers grow in pots']),
+ P('A Rainy Recess','Rain drummed on the roof, so Ms. Lopez’s class could not go outside. Mia felt sad at first. Then her teacher pulled out a box of games. Mia and her friends built a tall tower of blocks instead. They laughed so loudly that the class next door peeked in.',
+  ['Why could the class not go outside?','It was raining','It was too hot','It was dark','Recess was cancelled for a test'],['How did Mia feel at first?','Sad','Excited','Angry','Sleepy'],['What did Mia and her friends build?','A tower of blocks','A paper boat','A puzzle','A snowman']),
+ P('Why We Brush','Your teeth are covered with a sticky film called plaque. Plaque holds germs that can make holes in your teeth. Brushing twice a day removes plaque. Eating fewer sweets helps, too. Strong teeth let you bite, chew, and smile.',
+  ['What is the sticky film on teeth called?','Plaque','Gum','Enamel','Paste'],['How often should you brush?','Twice a day','Once a week','Only at night','Only after candy'],['What is this passage mostly about?','How to keep teeth healthy','Why candy is sweet','How germs travel','How to smile']),
+ P('The Lemonade Stand','Samira and her cousin set up a lemonade stand on a hot Saturday. They made a sign with big, bright letters. By noon, they had sold twenty cups. They counted their coins and decided to share the money with the animal shelter.',
+  ['When did the girls set up the stand?','On a hot Saturday','On a rainy Monday','On a cold Sunday','On a windy Friday'],['How many cups had they sold by noon?','Twenty','Ten','Fifty','Five'],['What did they decide to do with the money?','Share it with the animal shelter','Buy a toy','Save it for school','Give it to the bus driver']),
+ P('Cats at Night','Cats can see well in the dark. Their eyes have a special layer that bounces light back, so they can use even tiny bits of light. That is why a cat’s eyes seem to glow at night. This helps cats hunt when it is dark.',
+  ['What do cats’ eyes have that helps them see in the dark?','A special layer that bounces light back','Extra eyelids','Bigger ears','Longer whiskers'],['Why do a cat’s eyes seem to glow?','Light bounces off a layer in the eye','They make their own light','They are wet','They are very shiny from tears'],['How does this help cats?','They can hunt when it is dark','They can sleep longer','They can run faster','They can climb trees']),
+ P('The First Day','Bilisa was nervous on the first day of third grade. Her stomach felt fluttery. At the door, a girl with a purple headband said, “Want to sit with me?” Bilisa smiled. By lunch, she had a new friend, and her stomach felt calm.',
+  ['How did Bilisa feel at first?','Nervous','Proud','Sleepy','Angry'],['Who invited Bilisa to sit down?','A girl with a purple headband','Her teacher','Her brother','The principal'],['How did Bilisa feel by lunch?','Calm and happy','Still very scared','Bored','Tired']),
+ P('Apple Trees Through the Year','In spring, apple trees bloom with pink and white flowers. Bees visit the flowers, and small green fruits begin to grow. All summer the apples get bigger and redder. In fall, farmers pick them.',
+  ['What do apple trees do in spring?','Bloom with pink and white flowers','Drop their apples','Lose their leaves','Grow red apples'],['What visits the flowers?','Bees','Birds','Squirrels','Butterflies only'],['When do farmers pick the apples?','In fall','In spring','In winter','In early summer'])
+],
+[ /* October */
+ P('Spider Webs','Spiders spin webs to catch food. A spider makes thin silk inside its body and pulls it out in strands. Some webs are shaped like wheels. When a fly bumps into the sticky silk, the spider feels the shaking and runs over to eat it.',
+  ['Why do spiders spin webs?','To catch food','To keep warm','To hide from birds','To make a bed'],['How does the spider know a fly is stuck?','It feels the shaking','It sees a light','It hears a buzz from far away','It smells honey'],['What shape are some webs?','Wheels','Squares','Triangles','Stars']),
+ P('The Costume Contest','Yusuf wanted to be a robot for the school parade. He covered boxes with shiny foil and cut holes for his arms. But the box was so wide that he could not fit through the classroom door! His teacher laughed and helped him fold in the sides. Yusuf walked through the door sideways, proud of his costume.',
+  ['What was Yusuf’s costume?','A robot','A pirate','A ghost','A spaceship'],['What problem did Yusuf have?','His box was too wide for the door','His foil was torn','He lost his costume','He forgot the parade'],['How did the teacher help?','She helped him fold in the sides','She made him a new costume','She carried the box','She opened a bigger door']),
+ P('A Pumpkin’s Life','A pumpkin begins as a seed planted in the ground. The seed grows roots and a small green sprout. The sprout grows into a long vine with big leaves and yellow flowers. After a flower dies, a small green pumpkin grows. In fall, the pumpkin turns orange.',
+  ['What does a pumpkin begin as?','A seed','A flower','A vine','A leaf'],['What grows after a flower dies?','A small green pumpkin','A new seed','A root','A tree'],['What happens right after the sprout grows?','It becomes a long vine with leaves and flowers','The pumpkin turns orange','The roots die','A seed is planted']),
+ P('Grandpa’s Fix-It Shop','Every Saturday, Hodan visited her grandpa’s shop. He fixed radios, clocks, and bikes. “Why do you fix old things?” she asked. “Because they still have a lot of life left,” he said. Hodan picked up a screwdriver and learned to tighten a bike seat. Soon she was fixing things, too.',
+  ['What did Grandpa fix?','Radios, clocks, and bikes','Shoes and hats','Cars and boats','Phones and games'],['Why does Grandpa fix old things?','He believes they still have life left','They are free','He cannot buy new things','Nobody else will'],['What did Hodan learn to do?','Tighten a bike seat','Fix a clock','Paint a radio','Fix a car'])
+ ,
+ P('Bats Are Not Birds','Bats may fly, but they are not birds. Bats are mammals. They have fur and feed milk to their babies. Birds have feathers and lay eggs. Bats sleep upside down during the day and wake at night to eat insects.',
+  ['What kind of animal is a bat?','A mammal','A bird','A reptile','A fish'],['What do birds have that bats do not?','Feathers','Wings','Eyes','Legs'],['When do bats look for food?','At night','At noon','In the morning','All day']),
+ P('Zeinab Plants Bulbs','In October, Zeinab dug small holes in the garden. She dropped in a flower bulb and covered it with soil. “They will bloom in spring,” her mom said. “That is a long time to wait!” said Zeinab. But every week she checked the garden, hoping to see a little green shoot.',
+  ['What did Zeinab plant?','Flower bulbs','Beans','Tomatoes','Grass seed'],['When will the flowers bloom?','In spring','Next week','In summer','In winter'],['How does Zeinab feel about waiting?','Eager and a little impatient','Bored with gardening','Scared','Angry at her mom']),
+ P('Fire Safety','A smoke alarm can save your life. It makes a loud sound when it senses smoke. Families should test their alarms every month. They should also make an escape plan with two ways out of each room and a meeting place outside.',
+  ['What does a smoke alarm do?','Makes a loud sound when it senses smoke','Puts out fires','Calls the school','Turns off the lights'],['How often should families test alarms?','Every month','Every year','Every day','Never'],['What should an escape plan include?','Two ways out of each room and a meeting place','A list of games','A map of the school','A pet carrier only']),
+ P('The Scarecrow','Farmer Bekele stood a scarecrow in his field. It wore an old hat and a faded red shirt. At first, the crows stayed away. But soon the clever birds saw that the scarecrow never moved. Now one crow sits on its hat every morning, as if it were a friend.',
+  ['What did the scarecrow wear?','An old hat and a faded red shirt','A coat and boots','A bright blue cape','A straw skirt'],['Why did the crows stop being scared?','They saw it never moved','It fell down','Bekele took it away','It started to rain'],['What does “as if it were a friend” suggest?','The crow feels comfortable near it','The crow is angry','The crow is hungry','The crow is lost'])
+],
+[ /* November */
+ P('The Kind Bus Driver','Mr. Garcia drove bus 9 every morning. He greeted each child by name. One rainy day, he noticed Sami had no umbrella. The next morning, Mr. Garcia handed Sami a small umbrella from his own bag. “Everyone should stay dry,” he said with a wink.',
+  ['Who drove bus 9?','Mr. Garcia','Mr. Sami','Ms. Lopez','Mr. Wink'],['Why did Mr. Garcia give Sami an umbrella?','Sami had none on a rainy day','Sami asked for one','It was a prize','It was broken'],['Which word best describes Mr. Garcia?','Caring','Grumpy','Careless','Shy']),
+ P('Beavers Build','Beavers are skilled builders. They cut down trees with their strong front teeth. Then they stack logs and mud across a stream to make a dam. The dam creates a pond. In the middle of the pond, beavers build a lodge, where they are safe from wolves and bears.',
+  ['What do beavers use to cut down trees?','Their strong front teeth','Their claws','Their tails','Their paws only'],['Why do beavers build a dam?','To make a pond','To catch fish','To cross a road','To dry mud'],['What is a lodge?','A home in the middle of a pond','A kind of tree','A stack of mud','A fish trap']),
+ P('The Spelling Bee','Noor studied her spelling words every night. On the day of the bee, her hands shook as she walked to the microphone. “Your word is elephant,” said the teacher. Noor took a deep breath and spelled each letter slowly. “Correct!” the teacher said. Noor sat down, smiling and relieved.',
+  ['What did Noor do every night?','Studied her spelling words','Read a long book','Practiced singing','Cleaned her room'],['What was Noor’s word?','Elephant','Giraffe','Monkey','Tiger'],['Why did her hands shake?','She was nervous','She was cold','She was sleepy','She was angry']),
+ P('A Can Drive','Before the November holiday, Mr. Tran’s class collected cans of food for families in need. Every day the pile grew taller. By Friday, they had one hundred twelve cans. Mr. Tran said, “Giving is a way to say thank you for what we have.”',
+  ['What did the class collect?','Cans of food','Coats','Books','Toys'],['How many cans did they have by Friday?','112','121','100','210'],['What does Mr. Tran say giving is?','A way to say thank you','A way to win a prize','A kind of game','A school rule']),
+ P('How Sound Travels','Sound is made when something vibrates, or moves back and forth very fast. Touch your throat while you hum and you can feel it. Vibrations travel through the air to your ears. Sound can also travel through water and solids, but it cannot travel through empty space.',
+  ['What makes sound?','Vibrations','Light','Heat','Magnets'],['Which can sound travel through?','Air, water, and solids','Only air','Only empty space','Only solids'],['What does “vibrates” mean?','Moves back and forth very fast','Goes very slowly','Stays still','Glows brightly']),
+ P('The Great Race','The class held a race on the field. Hassan was the fastest, but he stopped to help Ben, who had tripped and dropped his shoe. By the time Hassan crossed the finish line, he was last. His classmates cheered louder for him than for the winner.',
+  ['Who tripped during the race?','Ben','Hassan','The teacher','The winner'],['Where did Hassan finish?','Last','First','Second','He did not finish'],['Why did classmates cheer loudly for Hassan?','He was kind to a friend','He won the race','He ran very fast','He told a joke']),
+ P('Monarch Migration','Every fall, monarch butterflies fly thousands of miles to warmer places. They cannot survive the cold winter in the north. Many monarchs from North America travel to forests in Mexico. There they rest in huge groups until spring.',
+  ['Why do monarchs fly south?','They cannot survive the cold winter','They are looking for flowers','They are chasing birds','They want to swim'],['Where do many monarchs go?','Forests in Mexico','Deserts','Big cities','The ocean'],['What do monarchs do there until spring?','Rest in huge groups','Build nests','Lay eggs in the snow','Fly in circles']),
+ P('Dina’s Drawing','Dina drew a picture of her grandmother’s house. She drew the red door, the tall tree, and the wind chimes. When she showed her teacher, the teacher asked, “What is the most important part?” Dina pointed to the tiny kitchen window. “That is where Grandma waves to me every day,” she said.',
+  ['What did Dina draw?','Her grandmother’s house','Her school','A garden','Her bedroom'],['Why is the kitchen window important to Dina?','Grandma waves to her from it','It is the biggest window','It is painted red','It is where the cat sits'],['What does this story show about Dina?','She loves her grandmother','She dislikes drawing','She wants a new house','She is afraid of windows'])
+],
+[ /* December */
+ P('The Gift of Socks','Ali saved his coins to buy a gift for his little brother. He looked at toy trucks, but they cost too much. Then he saw warm blue socks with rockets on them. “Perfect!” he thought. On gift day, his brother pulled on the socks and zoomed around the room like a rocket.',
+  ['Why did Ali save his coins?','To buy a gift for his brother','To buy a toy for himself','To pay for lunch','To fix his bike'],['Why did Ali not buy a toy truck?','It cost too much','His brother had one','It was broken','The store was closed'],['What did Ali’s brother do with the socks?','Pulled them on and zoomed around','Hid them','Gave them away','Cut them up']),
+ P('Hibernation','Some animals sleep through the winter. This is called hibernation. Before winter, a bear eats a great deal of food and grows fat. In its den, its heartbeat slows down and it uses stored fat for energy. In spring, the bear wakes up hungry.',
+  ['What is hibernation?','Sleeping through the winter','Flying south','Hunting at night','Building a nest'],['Why does a bear eat so much before winter?','To store fat for energy','To make friends','To find a den','To grow longer claws'],['When does the bear wake up?','In spring','In summer','In fall','In the middle of winter']),
+ P('Lights in the Dark','Winter days are short. In many places, the sun rises late and sets early. Long ago, people lit candles and fires to bring light to the long nights. Today, many families string lights on their homes in December. These lights remind us that even in the darkest time, there is warmth.',
+  ['Why are winter days short?','The sun rises late and sets early','The moon is bright','Clocks run faster','Clouds block the sun all day'],['What did people light long ago?','Candles and fires','Electric lamps','Flashlights','Fireworks'],['What do the lights remind us of?','Even in the dark, there is warmth','Winter is over','It is time to sleep','The sun is gone forever']),
+ P('The Science Fair','Layla tested which paper towel soaked up the most water. She dripped the same amount of water on three brands. She measured how much each one held. Brand B soaked up the most. “A fair test uses the same amount of water every time,” she told the judges.',
+  ['What did Layla test?','Which paper towel soaked up the most water','Which water was coldest','Which brand was cheapest','Which towel was softest'],['Which brand soaked up the most?','Brand B','Brand A','Brand C','They were all the same'],['Why did Layla use the same amount of water each time?','To make the test fair','To save water','To finish faster','Because she ran out'])
+ ,
+ P('Snowflakes','Every snowflake has six sides or points. Snowflakes form when water vapor in clouds freezes into tiny ice crystals. As the crystals fall, they stick together and grow into flakes. Although all snowflakes have six sides, no two look exactly alike.',
+  ['How many sides does a snowflake have?','Six','Four','Eight','Ten'],['How do snowflakes begin?','Water vapor freezes into ice crystals','Rain turns to sand','Wind blows frost','Clouds melt'],['Which sentence is true?','All snowflakes have six sides, but they look different','All snowflakes look exactly the same','Snowflakes have four points','Snowflakes form on the ground']),
+ P('Marta’s Choir','Marta was afraid to sing alone, but she loved singing in the choir. When everyone sang together, her voice blended in. On concert night the director whispered, “Your voice is lovely.” Marta stood a little taller. Maybe she could try a small solo next year.',
+  ['Why did Marta like the choir?','Her voice blended in with everyone','She got to sing alone','She was the director','It was easy'],['What did the director say?','Your voice is lovely','Sing louder','You are late','Stand back'],['What might Marta try next year?','A small solo','Playing drums','Being director','Quitting choir']),
+ P('The Compass','A compass helps you find your way. Inside is a thin magnetic needle that always points toward the north. If you know where north is, you can figure out south, east, and west. Hikers and sailors have used compasses for hundreds of years.',
+  ['Which direction does the needle point to?','North','South','East','West'],['Who has used compasses for hundreds of years?','Hikers and sailors','Bakers and teachers','Singers and dancers','Farmers only'],['What is the main idea?','A compass helps people find direction','A compass is made of glass','North is cold','Sailors need maps only']),
+ P('Cooking Together','On the last night before winter break, Ayaan’s family made sambusa together. Dad mixed the filling. Mom folded the dough into triangles. Ayaan’s job was to pinch the edges shut. The kitchen smelled wonderful. “Many hands make light work,” said Dad.',
+  ['What was Ayaan’s job?','Pinching the edges shut','Mixing the filling','Folding the dough','Washing the dishes'],['What does “many hands make light work” mean?','Work is easier when many people help','Hands should be washed','Lights are needed to cook','Work is always hard'],['What did Mom do?','Folded the dough into triangles','Mixed the filling','Set the table','Baked the bread'])
+]
+];
+
+RPX.push(
+[ /* January */
+ P('A Fresh Start','On the first day of January, Idil wrote a goal on a sticky note: read ten minutes every day. She stuck it on her bathroom mirror. Some days she was tired and almost forgot. But each time she saw the note, she picked up a book. By the end of the month, she had finished two whole books.',
+  ['What was Idil’s goal?','To read ten minutes every day','To clean her room','To learn to swim','To write a story'],['Where did Idil put her note?','On her mirror','On her desk','In her backpack','On the fridge'],['What helped Idil keep her goal?','Seeing the note','Her teacher’s reminders','A new alarm','A reading prize']),
+ P('Why Do We Have Seasons?','Earth is tilted as it circles the sun. When your part of Earth tilts toward the sun, you get more direct sunlight and longer days. That is summer. When your part tilts away, sunlight is weaker and days are shorter. That is winter. Seasons are caused by Earth’s tilt, not by how close Earth is to the sun.',
+  ['What causes the seasons?','Earth’s tilt','Earth’s speed','The moon’s pull','Clouds'],['Why is it winter when your part of Earth tilts away from the sun?','Sunlight is weaker and days are shorter','The sun turns off','Earth gets smaller','The moon blocks the sun'],['Which sentence is NOT true according to the passage?','Seasons happen because Earth moves closer to the sun in summer','Earth is tilted','Summer has longer days','Winter has weaker sunlight']),
+ P('Pip and Dot','All autumn, a squirrel named Pip hid acorns, while a chipmunk named Dot played in the leaves. “Why work so hard?” Dot asked. When snow covered the ground, Dot had nothing to eat. Pip shared some of his acorns, and Dot promised to start gathering food earlier next year.',
+  ['What did Pip do all autumn?','Hid acorns','Slept in a den','Built a bridge','Climbed trees for fun'],['Why did Dot have nothing to eat in winter?','She had not saved any food','She was too small','She lost her way','Pip took her food'],['What is the theme of this story?','It is wise to prepare ahead of time','Winter is fun','Squirrels are faster than chipmunks','Never share food']),
+ P('Meet the Octopus','An octopus has eight arms and no bones. Because its body is so soft, it can squeeze through a hole as small as a coin. It can also change color to hide on the ocean floor. When danger is near, it shoots out a cloud of dark ink and swims away.',
+  ['How many arms does an octopus have?','Eight','Six','Ten','Four'],['Why can an octopus squeeze through tiny holes?','It has no bones','It is very small','It has a hard shell','It has sharp teeth'],['What does an octopus do when danger is near?','Shoots out ink and swims away','Hides in sand','Bites the danger','Sleeps']),
+ P('Abdi’s Surprise','Abdi’s friends planned a surprise party for his birthday. They hid in the dark living room and held their breath. When Abdi opened the door, they jumped out and shouted, “Surprise!” Abdi’s eyes grew wide and his mouth fell open. Then he burst into a huge laugh and hugged them all.',
+  ['Where did the friends hide?','In the dark living room','Behind a tree','In the garage','Under the table'],['How did Abdi react at first?','He was shocked','He was angry','He was sleepy','He was sad'],['What does “held their breath” tell us?','They were being very quiet','They were underwater','They were sick','They were running']),
+ P('Wind Power','Wind turbines turn moving air into electricity. When wind pushes on the blades, they spin. The spinning blades turn a machine inside the turbine called a generator, which makes electricity. Wind is a renewable resource, which means it will never run out. Many farms in the Midwest use turbines.',
+  ['What does the spinning of the blades turn?','A generator','A battery','A wheel','A pump'],['What does “renewable” mean?','It never runs out','It is very costly','It is hard to find','It is made in factories'],['What happens first?','Wind pushes the blades','Electricity is made','The generator breaks','The tower falls']),
+ P('The Library Card','Warsame was proud to get his first library card. He ran his finger over his name on the shiny card. Then he walked to the shelves and chose five books about space. “You may borrow them for three weeks,” said the librarian. “Remember to bring them back so someone else can enjoy them.” Warsame promised he would.',
+  ['What did Warsame choose?','Five books about space','Two books about dogs','A map','Three movies'],['How long may he borrow the books?','Three weeks','One day','Two months','Five days'],['Why should he return the books?','So someone else can enjoy them','To get a prize','Because the librarian is mean','So he can buy more']),
+ P('Coral Reefs','Coral reefs look like colorful rocks, but they are made of tiny animals called polyps. Polyps build hard skeletons around their soft bodies. Over many years, millions of skeletons pile up and form a reef. Thousands of fish and other sea creatures live and hide in reefs, so reefs are like busy underwater cities.',
+  ['What are coral reefs made of?','Tiny animals called polyps','Colorful rocks','Sand','Seaweed'],['How do polyps build a reef?','They build hard skeletons around their bodies','They glue shells together','They stack sand','They drop stones'],['Why does the author call reefs “underwater cities”?','Many sea creatures live there','They have tall buildings','They are very noisy','They are far from shore'])
+],
+[ /* February */
+ P('The Class Pet','Room 8 got a class pet, a hamster named Biscuit. Each student took a turn feeding him and cleaning his cage. One Monday, Biscuit was missing! The students searched everywhere until Kenji heard a tiny scratching sound. Biscuit had tunneled into a tissue box and fallen asleep. The class laughed with relief.',
+  ['Who is Biscuit?','A hamster','A rabbit','A fish','A turtle'],['Where was Biscuit found?','Inside a tissue box','Under the desk','In a backpack','In the hallway'],['How did the class feel when Biscuit was found?','Relieved','Angry','Bored','Scared']),
+ P('The Moon’s Changing Shape','The Moon does not make its own light. We see it because it reflects sunlight. As the Moon travels around Earth, we see different parts of its lit side. This makes the Moon seem to change shape, from a thin crescent to a full circle and back again. One full cycle takes about one month.',
+  ['Why can we see the Moon?','It reflects sunlight','It makes its own light','It is close to Earth','Stars shine on it'],['What makes the Moon seem to change shape?','We see different parts of its lit side','It melts and grows','Clouds cover it','Earth’s shadow always covers it'],['How long does one full cycle take?','About one month','About one day','About one year','About one week']),
+ P('Clean Sidewalks','Walking to school, Luis noticed litter along the sidewalk. He felt bothered, but he did not know what to do. At school, he told his teacher. The class made posters and picked up trash during recess. A week later, the sidewalk was clean, and the neighbors thanked them.',
+  ['What did Luis notice on the way to school?','Litter on the sidewalk','A lost dog','A broken sign','A big puddle'],['What did the class do?','Made posters and picked up trash','Wrote a song','Planted flowers','Painted the sidewalk'],['Which word best describes Luis?','Responsible','Careless','Selfish','Lazy']),
+ P('How Fish Breathe','Fish do not have lungs like people. Instead, they have gills on the sides of their heads. When a fish swims, water flows over its gills. The gills take oxygen out of the water and pass it into the fish’s blood. This is how fish can breathe without ever leaving the water.',
+  ['What do fish use to breathe?','Gills','Lungs','Fins','Scales'],['What do gills take from the water?','Oxygen','Food','Salt','Heat'],['Where are a fish’s gills?','On the sides of its head','On its tail','On its belly','Inside its mouth only']),
+ P('The Missing Recipe','Hawa wanted to make her grandmother’s bread, but the recipe card was missing. She called her aunt, who remembered the flour and yeast. She called her cousin, who remembered the sugar and salt. By piecing together everyone’s memories, Hawa finally baked the bread. It tasted just like Grandmother’s.',
+  ['What was missing?','The recipe card','The flour','The oven','The bread pan'],['How did Hawa solve her problem?','She asked relatives to remember parts of the recipe','She bought bread','She guessed the recipe','She asked her teacher'],['What does this story show?','Working together can solve problems','Cooking is easy','Bread needs no recipe','Cousins know everything']),
+ P('Simple Machines','A simple machine makes work easier. A lever, like a seesaw, can lift a heavy object with less effort. A ramp helps you move a load up high without lifting it straight up. A wheel and axle lets a wagon roll instead of drag. You use simple machines every day, often without noticing.',
+  ['Which is an example of a lever?','A seesaw','A wagon','A ramp','A ladder'],['How does a ramp help?','You can move a load up without lifting it straight up','It makes things lighter','It makes things float','It makes things warm'],['What is the main idea?','Simple machines make work easier','Wagons are fun','Levers are heavy','Ramps are steep']),
+ P('A Letter From Far Away','Ibsa’s cousin moved across the ocean. At first, Ibsa missed him a lot. Then they started writing letters. Ibsa drew pictures of his dog, and his cousin described the snowy hills near his new house. Every letter made the miles feel smaller.',
+  ['Why did Ibsa and his cousin write letters?','His cousin moved far away','They were learning to write','It was a school rule','They had no phone'],['What did Ibsa draw in his letters?','His dog','His school','Snowy hills','His house'],['What does “made the miles feel smaller” mean?','They felt closer to each other','The distance became shorter','They moved nearer','The letters were small']),
+ P('Built for the Desert','Camels are built for the desert. Their wide feet do not sink into hot sand. Long eyelashes and closable nostrils keep out blowing dust. A camel’s hump stores fat, which it can use for energy when food is hard to find. Because of these traits, camels can travel for days with little food.',
+  ['What does a camel’s hump store?','Fat','Water','Sand','Air'],['How do wide feet help a camel?','They do not sink into the sand','They keep the camel cool','They help it swim','They make it faster'],['In this passage, “traits” means…','Features of an animal','Tracks in the sand','Tricks','Tools'])
+],
+[ /* March */
+ P('The Mystery Seed','Jamal found a strange seed in his coat pocket. He planted it in a pot on the windowsill and watered it each morning. After two weeks, a green shoot appeared. After two months, it had grown into a tall plant with yellow flowers. “A sunflower!” Jamal shouted. He could not remember where the seed had come from, but he was glad it had found him.',
+  ['Where did Jamal plant the seed?','In a pot on the windowsill','In the garden','In the yard','In a jar of water'],['How long did it take for the green shoot to appear?','Two weeks','Two days','Two months','Two years'],['What kind of plant grew?','A sunflower','A tomato','A rose','A bean']),
+ P('Tornado Safety','A tornado is a spinning column of air that touches the ground. Tornadoes can form during strong thunderstorms. A tornado warning means a tornado has been seen or shown on radar, and people should take shelter right away. The safest place is a basement or a small inside room with no windows.',
+  ['What is a tornado?','A spinning column of air that touches the ground','A very heavy rainstorm','A wave of snow','A strong ocean wave'],['What should people do during a tornado warning?','Take shelter right away','Go outside to watch','Open the windows','Drive away fast'],['What is the safest place?','A basement or small inside room with no windows','A room with large windows','A car','Under a tree']),
+ P('The Marble Jar','Ms. Ortiz kept a jar on her desk. Each time the class showed good teamwork, she added a marble. When the jar was full, the class earned a movie afternoon. For weeks the jar stayed half empty. Then, one rainy day, the students helped each other finish a hard project, and the marbles rattled in one after another.',
+  ['When did Ms. Ortiz add a marble?','When the class showed good teamwork','When someone was late','Every morning','When it rained'],['What did the class earn when the jar was full?','A movie afternoon','A pizza party','No homework','A field trip'],['What changed on the rainy day?','The students helped each other finish a project','The jar broke','The teacher left','The class got a new student']),
+ P('Echoes','An echo happens when sound bounces off a hard surface and returns to your ears. You can hear echoes in canyons, empty rooms, and tunnels. Soft things like curtains and carpets soak up sound, so there is little echo in a bedroom. Bats and dolphins use echoes to find their way.',
+  ['What is an echo?','Sound that bounces back to your ears','A very loud sound','A soft whisper','A kind of music'],['Why is there little echo in a bedroom?','Soft things soak up sound','Rooms are too small','The walls are too thick','Sound cannot enter'],['Which animals use echoes to find their way?','Bats and dolphins','Cats and dogs','Birds and frogs','Fish and bears']),
+ P('The Wrong Bus','On Friday, Tola climbed onto the wrong bus. When it turned down an unfamiliar street, her heart pounded. She took a breath and walked to the driver. “Excuse me, I think I am on the wrong bus,” she said. The driver kindly radioed the school, and soon Tola was back with her class. She learned that asking for help is the smartest thing to do.',
+  ['What did Tola do when she realized her mistake?','Walked to the driver and told him','Jumped off the bus','Hid in her seat','Called her mother'],['How did Tola feel when the bus turned down a strange street?','Scared','Excited','Sleepy','Proud'],['What lesson did Tola learn?','Asking for help is smart','Never ride a bus','Always sit in front','Buses are slow']),
+ P('Spiders and Insects','Many people think spiders are insects, but they are different. Insects have six legs and three body parts. Spiders have eight legs and two body parts. Insects often have wings and antennae, while spiders have neither. Both are arthropods, which means they have jointed legs and a hard outer covering.',
+  ['How many legs does a spider have?','Eight','Six','Four','Ten'],['Which animals have antennae?','Insects','Spiders','Both','Neither'],['What is the main idea?','Spiders and insects are different kinds of animals','Spiders are insects','Insects have eight legs','All bugs have wings']),
+ P('The Dusty Trunk','While cleaning the attic, Nasra found a dusty trunk. Inside were old photographs, a folded flag, and a wooden music box. When she wound the music box, a soft tune filled the air. Her father smiled. “That was my mother’s,” he said. “I have not heard that song in thirty years.”',
+  ['What did Nasra find in the attic?','A dusty trunk','A broken lamp','A letter','A teddy bear'],['Why did her father smile?','The music box was his mother’s and brought back memories','He wanted to buy it','He was tired of the song','He thought it was funny'],['How long had it been since he heard the song?','Thirty years','Three years','Thirteen years','One year']),
+ P('Wetlands','A wetland is an area where the ground is soaked with water for much of the year. Marshes, swamps, and bogs are all types of wetlands. Wetlands act like sponges, soaking up extra rain and helping to prevent floods. They also clean water as it passes through plants and soil. Many birds, frogs, and fish live there.',
+  ['What is a wetland?','Land soaked with water for much of the year','A dry desert','A rocky hill','A deep ocean'],['How do wetlands help prevent floods?','They soak up extra rain like sponges','They freeze water','They push water away','They store snow'],['Which is NOT a type of wetland?','Desert','Marsh','Swamp','Bog'])
+],
+[ /* April */
+ P('The Science Detective','Kai noticed that the ice cubes in his glass melted faster on the kitchen counter than in the cooler. He wondered why. He placed one ice cube in the sun and another in the shade and timed how long each took to melt. The sunny cube melted first. “Heat from the sun makes ice melt faster,” he wrote in his notebook.',
+  ['What did Kai wonder about?','Why ice melted faster on the counter','Why water is cold','How ice cubes are made','Why glasses are clear'],['How did Kai test his idea?','He put one cube in the sun and one in the shade and timed them','He asked his teacher','He read a book','He put both in the cooler'],['What was Kai’s conclusion?','Heat from the sun makes ice melt faster','Shade makes ice melt faster','Ice never melts','Glasses melt ice']),
+ P('Zones of the Ocean','The ocean has different layers. The top layer, called the sunlight zone, gets plenty of light. Most sea plants and many fish live here because plants need sunlight to grow. Deeper down, in the twilight zone, only a little light reaches. Below that, in the midnight zone, it is completely dark and very cold. Some animals there make their own light.',
+  ['Which zone gets plenty of sunlight?','The sunlight zone','The twilight zone','The midnight zone','The deep zone'],['Why do most sea plants live in the top zone?','Plants need sunlight to grow','It is warm','It has more fish','It is calm'],['What is special about the midnight zone?','It is completely dark and cold, and some animals make their own light','It has the most plants','It is full of sunlight','It is very shallow']),
+ P('Against the Clock','The school play started in ten minutes, and Dawit could not find his hat. He checked his locker, the stage, and the costume box. Finally, he looked up and saw it sitting on top of the piano where he had set it earlier. He grabbed it, dashed backstage, and slid into place just as the curtain began to rise.',
+  ['Where was Dawit’s hat?','On top of the piano','In his locker','On the stage','In the costume box'],['How much time was left before the play?','Ten minutes','One hour','Five minutes','Thirty minutes'],['Which word best describes how Dawit felt while searching?','Anxious','Sleepy','Bored','Calm']),
+ P('Pollinators','When a bee lands on a flower, yellow dust called pollen sticks to its body. When the bee visits the next flower, some pollen rubs off. This helps the plant make seeds and fruit. Animals that carry pollen, such as bees, butterflies, and hummingbirds, are called pollinators. Without them, we would have far fewer apples, berries, and almonds.',
+  ['What is pollen?','Yellow dust from flowers','A kind of nectar','A type of seed','A small insect'],['What are pollinators?','Animals that carry pollen from flower to flower','Plants that make honey','Insects that eat leaves','Birds that eat seeds'],['Why are pollinators important?','Plants need them to make seeds and fruit','They make rain','They scare pests','They clean the air']),
+ P('The Open Mic','Yasmin’s hands trembled as she stepped onto the stage with her poem. She looked at the audience and froze. Then she spotted her little brother in the front row, giving her a big thumbs up. She took a deep breath and began to read. By the final line, her voice was strong and steady, and the room burst into applause.',
+  ['Who gave Yasmin a thumbs up?','Her little brother','Her teacher','Her mother','A friend'],['How did Yasmin’s voice change as she read?','From shaky to strong','From loud to quiet','From fast to slow','It did not change'],['What helped Yasmin keep going?','Seeing her brother’s support','A new microphone','A drink of water','A longer poem']),
+ P('Rocks Change Slowly','Rocks may seem to last forever, but they slowly change. Wind and rain wear away rock bit by bit. This is called erosion. Water also seeps into cracks, freezes, and expands, which can split a rock apart. Over thousands of years, erosion can carve deep canyons, such as the Grand Canyon, out of solid stone.',
+  ['What is erosion?','Wind and rain wearing away rock','Rock turning into metal','Rocks rolling downhill','Rocks growing bigger'],['What can split a rock apart?','Water freezing in its cracks','Warm sunshine','Dry air','Moonlight'],['How long can it take to carve a canyon?','Thousands of years','A few days','One summer','Ten minutes']),
+ P('The Bakery Line','Every morning, a long line formed outside Mr. Hashi’s bakery. People came for warm bread and sweet rolls. Mr. Hashi woke at three o’clock to start the ovens. “Fresh bread cannot be rushed,” he often said. His customers did not mind waiting, because they knew the taste would be worth it.',
+  ['What time did Mr. Hashi wake up?','Three o’clock','Six o’clock','Noon','Midnight'],['What does “cannot be rushed” mean?','Good bread takes time','Bread is made fast','Bakers are slow','The oven is broken'],['Why did customers not mind waiting?','They knew the taste would be worth it','They had nothing else to do','The line moved fast','They got free rolls']),
+ P('Lighthouses','A lighthouse is a tall tower with a bright light at the top. Long ago, sailors used lighthouses to avoid rocks and shallow water near the shore. The lamp turns, so ships far away see flashes of light. Each lighthouse has its own pattern of flashes, so sailors can tell which one they are seeing and know where they are.',
+  ['What is the purpose of a lighthouse?','To help sailors avoid danger','To store fish','To warm the water','To guide airplanes'],['Why does each lighthouse have its own flash pattern?','So sailors can tell which lighthouse it is','To save electricity','To make a pretty show','To scare birds'],['Why does the lamp turn?','So ships far away see flashes of light','To keep it cool','To clean the glass','To make music'])
+],
+[ /* May */
+ P('Painting the Sky','Two best friends, Selam and Ruth, argued over who would paint the mural’s blue sky. Neither would give in. Their teacher suggested they split the sky: Selam would paint the morning, and Ruth would paint the sunset. When they finished, the sky glowed from soft blue to deep orange. “It’s better than either of us could have done alone,” Ruth admitted.',
+  ['What did the friends argue about?','Who would paint the sky','Who was taller','What to eat','Which color was best'],['How did the teacher solve the problem?','She suggested they split the sky','She painted it herself','She chose one friend','She cancelled the mural'],['What is the theme of this story?','Compromise can lead to something better','Never argue with friends','The teacher is always right','Blue is the best color']),
+ P('Fossils','Fossils are the remains or traces of living things from long ago. Most form when a plant or animal dies and is quickly buried by mud or sand. Over millions of years, minerals replace the soft parts, and the buried remains turn to stone. Scientists dig up fossils to learn what Earth was like long ago and what kinds of creatures lived here.',
+  ['What are fossils?','Remains or traces of living things from long ago','Rocks that fell from space','Shells from today’s beach','Old bones that are still soft'],['What turns buried remains to stone?','Minerals over millions of years','Fire','Wind','Ice'],['Why do scientists dig up fossils?','To learn about Earth and creatures from long ago','To sell them','To make rocks','To find gold']),
+ P('The Class Newspaper','Room 14 decided to publish a class newspaper. Zainab became the editor, and Tomas the photographer. Others wrote stories about field trips, lunch menus, and sports. The first week, a few stories were late and Zainab felt stressed. But each week the team got better at meeting deadlines. By May, their newspaper was the most popular in the hallway.',
+  ['Who was the editor?','Zainab','Tomas','The teacher','Ruth'],['What problem did the team have at first?','Some stories were late','No one wanted to write','The camera broke','The paper ran out'],['What happened by May?','The newspaper became popular','The paper stopped','Zainab quit','Tomas became editor']),
+ P('Electric Circuits','For a light bulb to glow, electricity must have a complete path to travel along. This path is called a circuit. A simple circuit has a battery, wires, and a bulb. If the path is broken, the electricity stops, and the bulb goes dark. A switch works by opening or closing the path. When the switch is closed, the circuit is complete and the light turns on.',
+  ['What does electricity need to make a bulb glow?','A complete path','A glass jar','A magnet','A fan'],['What happens if the path is broken?','The bulb goes dark','The bulb glows brighter','The battery grows','The wires melt'],['What does a closed switch do?','It completes the circuit so the light turns on','It breaks the circuit','It removes the battery','It cools the wires']),
+ P('The Village Well','In a small village, everyone depended on one well. When the well began to run low, people argued about who should get water first. An elder told them, “If we take only what we need, there will be enough for everyone.” The villagers listened and shared carefully. By the rainy season, the well was full again.',
+  ['What did the villagers depend on?','One well','A river','A lake','A pond'],['What did the elder advise?','Take only what you need','Dig a new well','Move away','Let the strongest drink first'],['What is the theme of this story?','Sharing carefully helps everyone','Wells are deep','Elders know the weather','Water is heavy']),
+ P('Dolphin Talk','Dolphins communicate using clicks, whistles, and body movements. Each dolphin has its own special whistle that works like a name. When a dolphin hears its own whistle, it responds. Scientists have also found that dolphins sometimes copy the whistles of their friends, as if calling them by name. These findings show how smart and social dolphins are.',
+  ['How do dolphins communicate?','Clicks, whistles, and body movements','Only by jumping','Only by sight','Only by smell'],['What works like a name for a dolphin?','Its own special whistle','Its color','Its size','Its fin shape'],['What do the findings show about dolphins?','They are smart and social','They are shy','They are lonely','They cannot hear']),
+ P('A New Place','When Chaltu’s family moved to a new city, everything felt strange. The streets were noisy, the school halls were huge, and she missed her old friends. Then a neighbor knocked on the door with a plate of cookies. “Welcome,” she said. Over the summer, Chaltu learned the names of the streets and met kids at the park. Slowly, the strange place began to feel like home.',
+  ['What did the neighbor bring?','A plate of cookies','A new toy','A map','A cake'],['Why did everything feel strange at first?','Everything was new and unfamiliar','Chaltu was sick','It was always raining','The house was too small'],['What does “began to feel like home” show?','Chaltu became comfortable in her new city','Chaltu moved again','Chaltu forgot her old home','The neighbor moved away']),
+ P('Reading Tree Rings','You can tell the age of a tree by counting the rings inside its trunk. Each year, a tree grows one new ring. Wide rings show years with plenty of rain and sunshine, while thin rings show years when the weather was hard. Scientists study tree rings to learn about the weather hundreds of years ago.',
+  ['How can you tell a tree’s age?','Count the rings in its trunk','Measure its height','Count its leaves','Weigh its trunk'],['What do thin rings show?','Years when the weather was hard','Years with lots of rain','Years the tree was young','Years of fire'],['What do scientists learn from tree rings?','What the weather was like long ago','How many animals lived there','Where roads were built','What trees eat'])
+]
+);
+
+const VBX=[
+ [['tiny','very small'],['quiet','making little or no noise'],['rough','not smooth'],['hungry','wanting food'],['journey','a trip from one place to another'],['borrow','to take and give back later'],['nervous','a little afraid or worried'],['glad','happy'],['dusty','covered with fine dirt'],['search','to look for something'],['proud','feeling good about what you did'],['wander','to walk without a plan'],['crowded','full of people'],['gentle','soft and kind'],['collect','to gather things together'],['signal','a sign that tells you something'],['alike','the same or almost the same'],['bright','giving off a lot of light'],['steady','not shaking or changing'],['polite','having good manners']],
+ [['fierce','strong and wild'],['carefully','with great attention'],['frighten','to make someone scared'],['gloomy','dark and sad'],['creature','a living animal'],['costume','clothes worn to look like someone else'],['spooky','scary in a mysterious way'],['sprout','a new, small plant'],['shelter','a safe place from weather or danger'],['trade','to give one thing for another'],['bargain','something sold for less than usual'],['burrow','a hole an animal digs to live in'],['crisp','firm and fresh'],['blanket','a soft cover for warmth'],['feast','a big, special meal'],['chilly','rather cold'],['rustle','a soft sound like dry leaves'],['bundle','a group of things tied together'],['seasonal','happening at a certain time of year'],['wither','to dry up and die']],
+ [['grateful','thankful'],['generous','willing to share'],['volunteer','a person who helps without being paid'],['community','a group of people who live in the same place'],['prepare','to get ready'],['celebrate','to do something special for a happy day'],['recipe','instructions for making food'],['ingredient','one of the things in a recipe'],['compliment','a kind thing said about someone'],['gather','to come together'],['appreciate','to be thankful for something'],['respect','to treat with care and honor'],['hospitality','kindness to guests'],['neighbor','someone who lives near you'],['sincere','honest and true'],['migrate','to move to another place for the season'],['stampede','a sudden rush of many animals'],['delicate','fragile and easily harmed'],['absorb','to soak up'],['support','to help and encourage']],
+ [['freezing','extremely cold'],['blizzard','a heavy snowstorm with strong wind'],['icicle','a hanging spike of ice'],['hibernate','to sleep through the winter'],['frost','thin ice on a surface'],['cozy','warm and comfortable'],['tradition','a custom passed down in a family'],['gift','a present'],['sparkle','to shine with tiny flashes of light'],['evergreen','a tree that stays green all year'],['shovel','a tool for digging or moving snow'],['mitten','a warm cover for the hand'],['crystal','a clear, hard, shiny piece of ice or mineral'],['holiday','a special day or time off'],['bundle up','to dress in warm clothes'],['flurry','a light snowfall'],['thaw','to melt and become soft'],['peaceful','calm and quiet'],['kindness','being friendly and caring'],['wonder','to want to know about something']],
+ [['resolution','a firm decision to do something'],['goal','something you want to reach'],['effort','hard work to do something'],['progress','moving forward'],['practice','to do something again and again to get better'],['patient','able to wait calmly'],['challenge','something hard to do'],['perform','to do a task or show'],['promise','to say you will surely do something'],['achieve','to reach a goal'],['volcano','a mountain that can erupt with lava'],['erupt','to burst out suddenly'],['pressure','a pushing force'],['molten','melted by great heat'],['formation','something that has taken shape'],['barrier','something that blocks the way'],['mighty','very strong and powerful'],['moral','a lesson from a story'],['loyal','faithful to a friend or promise'],['overcome','to win against a problem']],
+ [['persistent','not giving up'],['frustrated','upset because something is hard'],['soar','to fly high'],['gust','a sudden strong rush of wind'],['stumble','to trip or almost fall'],['recycle','to make old things into new things'],['pulp','a soft, wet mass'],['resource','something useful that people can use'],['reduce','to make smaller or less'],['pollution','dirty things that harm air, water, or land'],['conserve','to use carefully and not waste'],['crafty','clever at making plans or things'],['curious','eager to learn'],['dangle','to hang loosely'],['fascinated','very interested'],['gleam','to shine softly'],['quiver','to shake a little'],['trace','a small sign that something was there'],['wilt','to droop from lack of water'],['mimic','to copy someone']],
+ [['sprout','to begin to grow'],['germinate','to start to grow from a seed'],['nutrients','things that plants and animals need to grow'],['vapor','tiny drops of water in the air'],['droplet','a very small drop of liquid'],['precipitation','water that falls from clouds'],['patient','calm while waiting'],['measure','to find the size or amount of something'],['record','to write down information'],['observe','to watch carefully'],['predict','to say what you think will happen'],['inspect','to look at something closely'],['cultivate','to grow and care for plants'],['bloom','to open into a flower'],['moisture','a small amount of wetness'],['tremble','to shake a little'],['squall','a sudden short storm'],['shelter','a place that protects you from danger'],['warning','a sign that danger may be near'],['equipment','the tools needed to do a job']],
+ [['elapsed','passed, as time'],['mixture','things mixed together'],['solution','a way to solve a problem'],['conclusion','what you decide after thinking about facts'],['hypothesis','a smart guess to be tested'],['experiment','a test to find out something'],['evidence','facts that show something is true'],['erosion','the slow wearing away of land'],['canyon','a deep valley with steep sides'],['sunlit','lit by the sun'],['organism','any living thing'],['zone','an area with certain features'],['mammoth','extremely large'],['anxious','worried and nervous'],['determined','set on finishing something'],['marvel','to be filled with wonder'],['restore','to bring back to how it was'],['glance','a quick look'],['peculiar','strange or unusual'],['cautious','careful to avoid danger']],
+ [['compromise','an agreement where each side gives up something'],['collaborate','to work together on something'],['responsible','able to be trusted to do the right thing'],['courageous','having courage'],['enthusiastic','very excited and interested'],['fossil','the remains of a living thing from long ago'],['extinct','no longer living anywhere'],['circuit','a path for electricity'],['conductor','a material that lets electricity flow'],['generate','to make or produce'],['community','a group of people who share a place'],['independent','able to do things by yourself'],['dedicated','giving lots of time and effort'],['admire','to look up to someone'],['resilient','able to bounce back after trouble'],['heritage','traditions passed down through families'],['inspire','to make someone want to do something good'],['fortunate','lucky'],['dependable','able to be counted on'],['summary','a short retelling of the main points']]
+];
+const FBM=[
+ [['A noun names a…','Person, place, or thing','Action','Describing word','Sound'],['Which word is a verb?','Jump','Table','Blue','Happy'],['Which is a living thing?','Tree','Rock','Chair','Cloud'],['The person who writes a book is the…','Author','Reader','Printer','Mapmaker'],['What do plants need to grow?','Water, light, and air','Candy','Plastic','Darkness only'],['Which of these is a fact?','Dogs are mammals','Dogs are the best pets','Dogs are boring','All dogs are fast'],['What is the capital letter used for?','The start of a sentence','The end of a sentence','Between words','Inside a word'],['Which one is a bird?','Robin','Bat','Butterfly','Squirrel'],['Which sentence is complete?','The cat sat on the mat.','Sat on the mat.','The cat on.','On the mat the.'],['The sun is a…','Star','Planet','Moon','Cloud'],['What does a table of contents show?','Where chapters begin','Who drew the pictures','The price','The cover color'],['A baby dog is called a…','Puppy','Kitten','Cub','Calf']],
+ [['An adjective describes a…','Noun','Verb','Period','Comma'],['Which word is an adjective?','Shiny','Run','Table','Quickly'],['A seed grows into a…','Plant','Rock','Animal','Cloud'],['What is the first stage of a butterfly’s life?','Egg','Chrysalis','Butterfly','Caterpillar'],['Which is a plural noun?','Cats','Cat','Cat’s','Catty'],['The part of a plant that holds it in the soil is the…','Roots','Leaves','Petals','Stem'],['What do we call a story with made-up characters?','Fiction','Biography','Atlas','Dictionary'],['Which season has the shortest days in the north?','Winter','Summer','Spring','Fall'],['Which animal is an insect?','Ant','Spider','Snail','Worm'],['What does a glossary do?','Explains important words','Lists chapter titles','Shows maps','Names the author'],['Which is a sense you use with your nose?','Smell','Taste','Touch','Hearing'],['A group of letters that makes a word part is a…','Syllable','Sentence','Paragraph','Title']],
+ [['A prefix is added to the…','Beginning of a word','End of a word','Middle of a word','Title'],['What does the prefix “un-” mean?','Not','Again','Before','Over'],['Which word means the same as “big”?','Large','Tiny','Thin','Short'],['An animal’s habitat is its…','Home in nature','Favorite food','Baby','Sound'],['Which animal has a thick coat to survive cold?','Polar bear','Lizard','Frog','Camel'],['What is a caption?','Words under a picture','The title','The index','A chapter'],['What do herbivores eat?','Plants','Meat only','Insects only','Plants and meat'],['Which part of a plant makes food using sunlight?','Leaves','Roots','Flowers','Seeds'],['Which is a compound word?','Sunflower','Running','Quickly','Happiness'],['What do we call words that mean the opposite?','Antonyms','Synonyms','Nouns','Verbs'],['What is the main job of a bee for a flower?','Carry pollen','Eat the petals','Water the roots','Cut the stem'],['Which is a mammal that lives in the ocean?','Whale','Shark','Octopus','Jellyfish']],
+ [['A push or a pull is called a…','Force','Habit','Sound','Light'],['What force pulls objects toward Earth?','Gravity','Wind','Heat','Sound'],['Water at 32°F (0°C) will…','Freeze','Boil','Evaporate','Disappear'],['A thermometer measures…','Temperature','Weight','Length','Sound'],['Which one is a solid?','Ice cube','Steam','Rain','Smoke'],['What is a cloud made of?','Tiny drops of water','Cotton','Smoke','Dust only'],['The suffix “-ful” means…','Full of','Without','Again','Not'],['Which word has the suffix “-less”?','Careless','Careful','Cared','Caring'],['Which season comes after fall?','Winter','Summer','Spring','Fall'],['A story’s setting tells…','Where and when it happens','Who wrote it','The lesson','The ending'],['What does a magnet attract?','Iron and steel','Wood','Glass','Plastic'],['Which animal hibernates?','Bear','Goldfish','Cow','Hen']],
+ [['What does a force do to a moving object?','It can change its speed or direction','Nothing','Makes it invisible','Makes it lighter'],['Friction is a force that…','Slows things that rub together','Makes things fly','Makes things bigger','Creates light'],['Which is smoother, so there is less friction?','Ice','Sandpaper','Carpet','Gravel'],['A magnet has two ends called…','Poles','Edges','Corners','Tips'],['What do we call a story’s lesson?','Theme','Setting','Title','Plot'],['Which is an example of a push?','Kicking a ball','Lifting a pencil','Pulling a wagon','Dragging a toy by a string'],['What is the main idea of a paragraph?','What it is mostly about','The first word','The last sentence','The longest sentence'],['What does “synonym” mean?','A word with a similar meaning','A word with the opposite meaning','A word that rhymes','A word with two meanings'],['What is a mammal?','An animal with fur that feeds milk to its young','A bird that swims','A fish with legs','An insect with fur'],['What is the layer of Earth we live on?','Crust','Core','Mantle','Magma'],['Which tool measures mass?','Scale','Ruler','Clock','Thermometer'],['A character’s feelings can be shown by…','Their actions and words','The book’s size','The page numbers','The cover']],
+ [['Which is a liquid?','Milk','Wood','Ice','Steam'],['When ice melts, it becomes…','Water','Gas','Rock','Sand'],['Heat is a form of…','Energy','Matter','Gravity','Sound'],['What is evaporation?','Liquid water turning into vapor','Water turning to ice','Rain falling','Water running downhill'],['Which is a good conductor of heat?','Metal spoon','Wooden spoon','Rubber band','Plastic cup'],['The word “cold” is an antonym of…','Hot','Cool','Chilly','Icy'],['What is a simile?','A comparison using like or as','A rhyme','A question','A sentence with no verb'],['Which is a simile?','He ran as fast as the wind','He ran fast','He is the wind','The wind ran'],['What is the plural of “fox”?','Foxes','Foxs','Fox’s','Foxen'],['Which state of matter has no fixed shape but fills its container?','Gas','Solid','Both solid and liquid','None'],['What is a biography?','A true story about a person’s life','A made-up story','A poem','A play'],['A narrator is…','The one who tells the story','The main character only','The illustrator','The publisher']],
+ [['Which is part of the water cycle?','Evaporation','Hibernation','Migration','Erosion'],['When water vapor cools into droplets, it is called…','Condensation','Evaporation','Erosion','Melting'],['Rain, snow, and hail are all types of…','Precipitation','Pollution','Condensation','Vapor'],['Words that sound the same but are spelled differently are…','Homophones','Antonyms','Synonyms','Prefixes'],['Which pair are homophones?','Their and there','Hot and cold','Big and large','Run and ran'],['A hurricane forms over…','Warm ocean water','Cold mountains','Dry deserts','Frozen lakes'],['What do weather scientists use to measure rainfall?','Rain gauge','Ruler','Compass','Scale'],['Which is a type of cloud?','Cumulus','Cumulative','Cumber','Cumin'],['A flower’s job is to…','Make seeds','Hold water','Drink sunlight','Hide the roots'],['What does an author’s purpose mean?','Why the author wrote the text','Where the author lives','How long the book is','Who illustrated it'],['What is the climate of a place?','Its usual weather over many years','Today’s weather','Tomorrow’s weather','The wind in one hour'],['Which is a metaphor?','Time is a thief','Time is like a thief','Time passes','Time thief']],
+ [['A food chain begins with…','The Sun','A hawk','A snake','A rabbit'],['Which is a producer?','Grass','Hawk','Frog','Fox'],['A predator is an animal that…','Hunts other animals','Eats only plants','Sleeps all winter','Builds nests'],['An animal that is hunted is called…','Prey','A predator','A producer','A decomposer'],['What do decomposers do?','Break down dead things','Make food from sunlight','Hunt animals','Carry pollen'],['A fossil shows us…','Life from long ago','Today’s weather','The age of the sun','Where wind starts'],['What is an ecosystem?','Living and nonliving things in an area','A kind of rock','A type of farm','A big city'],['Which is a compound word?','Rainbow','Quickly','Painting','Beautiful'],['What is point of view?','Who is telling the story','The ending','The setting','The title'],['“I walked to the park” is told in…','First person','Second person','Third person','Fourth person'],['What is a reptile?','A cold-blooded animal with scales','An animal with fur','A bird','An insect'],['Which is a natural resource?','Water','Plastic','Glass','Paper']],
+ [['Traits are…','Features passed from parents to young','Weather patterns','Types of rocks','Kinds of books'],['Which is an inherited trait in people?','Eye color','Riding a bike','Speaking a language','Reading'],['Which planet is closest to the Sun?','Mercury','Earth','Mars','Jupiter'],['Which planet is known for its rings?','Saturn','Mars','Venus','Earth'],['What is the Sun?','A star','A planet','A moon','A comet'],['Which is the largest planet?','Jupiter','Earth','Mars','Mercury'],['What is a theme?','The big lesson of a story','The first sentence','The setting','The character list'],['A summary should…','Tell the main points briefly','Retell every detail','Give your opinion only','List the characters'],['What is the setting?','Where and when the story happens','The main problem','The last page','The lesson'],['What do we call the order of events in a story?','Plot','Theme','Title','Setting'],['Which is a fact about Earth?','It orbits the Sun','It is the biggest planet','It has two moons','It is a star'],['What is a habitat?','A place where an animal lives','A type of food','A kind of tool','A season']]
+];
+
+const MGX=[
+[ /* Sep */
+ g=>{const a=R(g,120,480),b=R(g,110,400),s=a+b;return mk(g,`A class collected ${a} cans in week 1 and ${b} cans in week 2. How many cans did they collect in all?`,s,[s+10,s-10,s+100,a],'3.NBT.A.2',`${a} + ${b} = ${s}.`)},
+ g=>{const n=shuffle(g,[R(g,100,299),R(g,300,499),R(g,500,699),R(g,700,999)]),least=g()<.5,ans=least?Math.min(...n):Math.max(...n);return mk(g,`Which number is the ${least?'least':'greatest'}? ${n.join(', ')}`,ans,n.filter(x=>x!==ans),'3.NBT.A.1',`Compare the hundreds digits first.`)},
+ g=>{const h=R(g,1,9),t=R(g,1,9),o=R(g,1,9),n=h*100+t*10+o;return mk(g,`${h*100} + ${t*10} + ${o} = ?`,n,[h*100+t+o,n+10,n-10,n+100],'3.NBT.A.1',`${h*100} + ${t*10} + ${o} = ${n}.`)}
+],
+[ /* Oct */
+ g=>{const r=R(g,2,6),c=R(g,2,6);return mk(g,`An array has ${r} rows with ${c} dots in each row. How many dots are there?`,r*c,[r+c,r*c+c,r*c-r,r*c+1],'3.OA.A.1',`${r} × ${c} = ${r*c}.`)},
+ g=>{const f=pick(g,[2,5]),n=R(g,2,9);return mk(g,`${f} × ${n} = ?`,f*n,[f*n+f,f*n-f,f+n,f*n+1],'3.OA.C.7',`${f} × ${n} = ${f*n}.`)},
+ g=>{const n=R(g,2,5),m=R(g,2,6);return mk(g,`Which number sentence shows ${n} groups of ${m}?`,`${n} × ${m} = ${n*m}`,[`${n} + ${m} = ${n+m}`,`${n} × ${m} = ${n*m+m}`,`${n} − ${m} = ${n-m}`],'3.OA.A.1',`${n} groups of ${m} is ${n} × ${m}.`)}
+],
+[ /* Nov */
+ g=>{const n=R(g,2,9);return mk(g,`10 × ${n} = ?`,10*n,[n+10,10*n+10,10*n-10,n*5],'3.OA.C.7',`Ten times ${n} is ${10*n}.`)},
+ g=>{const f=R(g,2,9);return mk(g,`${f*5} ÷ 5 = ?`,f,[f+1,f-1,f*5,f+5],'3.OA.A.2',`5 × ${f} = ${f*5}, so ${f*5} ÷ 5 = ${f}.`)},
+ g=>{const f=pick(g,[2,5,10]),n=R(g,2,9);return mk(g,`? × ${f} = ${f*n}`,n,[n+1,n-1,f,n+2],'3.OA.A.4',`${n} × ${f} = ${f*n}.`)}
+],
+[ /* Dec */
+ g=>{const f=pick(g,[3,4]),n=R(g,3,9);return mk(g,`${f} × ${n} = ?`,f*n,[f*n+f,f*n-f,f+n,f*n+1],'3.OA.C.7',`${f} × ${n} = ${f*n}.`)},
+ g=>{const f=R(g,3,9),n=R(g,3,9);return mk(g,`If ${f} × ${n} = ${f*n}, what is ${f*n} ÷ ${f}?`,n,[n+1,n-1,f,f*n],'3.OA.B.6',`Multiplication and division are related.`)},
+ g=>{const f=pick(g,[3,4,5]),n=R(g,3,9);return mk(g,`${f*n} pencils are shared equally among ${f} students. How many pencils does each student get?`,n,[n+1,n-1,f,n+2],'3.OA.A.2',`${f*n} ÷ ${f} = ${n}.`)}
+],
+[ /* Jan */
+ g=>{const a=R(g,23,78),b=R(g,12,64),r=Math.round(a/10)*10+Math.round(b/10)*10;return mk(g,`Round each number to the nearest 10, then add: ${a} + ${b}`,r,[r+10,r-10,r+20,a+b],'3.OA.D.8',`${Math.round(a/10)*10} + ${Math.round(b/10)*10} = ${r}.`)},
+ g=>{const A=R(g,10,40),B=R(g,2,5),C=R(g,3,6);return mk(g,`Ava has ${A} cards. She buys ${B} packs with ${C} cards in each pack. How many cards does she have now?`,A+B*C,[A+B+C,A*B*C,A+B*C+C,A+B*C-C],'3.OA.D.8',`First ${B} × ${C} = ${B*C}. Then ${A} + ${B*C} = ${A+B*C}.`)},
+ g=>{const a=R(g,3,9),b=pick(g,[20,30,40,50,60]);return mk(g,`${a} × ${b} = ?`,a*b,[a*b/10,a*b*10,a*b+10,a*b-10],'3.NBT.A.3',`${a} × ${b/10} = ${a*b/10}, then times 10 is ${a*b}.`)}
+],
+[ /* Feb */
+ g=>{const N=pick(g,[3,4,6,8]),K=R(g,1,N-1);return mk(g,`A number line from 0 to 1 is split into ${N} equal parts. A point is at the ${K}${K===1?'st':K===2?'nd':K===3?'rd':'th'} mark. What fraction names the point?`,`${K}/${N}`,[`${N-K}/${N}`,`${N}/${K}`,`${K}/${N+1}`],'3.NF.A.2',`The point is ${K} of ${N} equal parts from 0.`)},
+ g=>{const N=R(g,3,9),K=R(g,1,N-1);return mk(g,`In the fraction ${K}/${N}, what is the denominator?`,N,[K,N+1,N-1,K+N],'3.NF.A.1',`The denominator is the bottom number. It tells how many equal parts in all.`)},
+ g=>{const N=R(g,3,8);return mk(g,`Which fraction shows 1 out of ${N} equal parts?`,`1/${N}`,[`${N}/1`,`1/${N+1}`,`${N-1}/${N}`],'3.NF.A.1',`1 part out of ${N} equal parts is 1/${N}.`)}
+],
+[ /* Mar */
+ g=>{const k=R(g,2,5);return mk(g,`Which fraction is equal to 1/2?`,`${k}/${2*k}`,[`${k}/${k+1}`,`1/${2*k}`,`${2*k}/${k}`],'3.NF.A.3b',`${k} is half of ${2*k}, so ${k}/${2*k} = 1/2.`)},
+ g=>{const n=pick(g,[2,3]),d1=R(g,3,5),d2=d1+R(g,1,3);return mk(g,`Which is greater: ${n}/${d1} or ${n}/${d2}?`,`${n}/${d1}`,[`${n}/${d2}`,'They are equal'],'3.NF.A.3d',`The tops match, so the fraction with fewer parts is greater.`)},
+ g=>{const k=pick(g,[2,3]),a=pick(g,[1,3]);return mk(g,`Which fraction is equal to ${a}/4?`,`${a*k}/${4*k}`,[`${a*k}/${4+k}`,`${a}/${4*k}`,`${4*k}/${a*k}`],'3.NF.A.3b',`Multiply top and bottom by ${k}.`)}
+],
+[ /* Apr */
+ g=>{const A=R(g,6,15),B=R(g,2,A-2);return mk(g,`A pitcher holds ${A} liters of juice. Mia pours out ${B} liters. How many liters are left?`,`${A-B} liters`,[`${A+B} liters`,`${A-B+1} liters`,`${A-B-1} liters`],'3.MD.A.2',`${A} − ${B} = ${A-B}.`)},
+ g=>{const o=pick(g,[['a pencil','grams'],['a paper clip','grams'],['a bag of rice','kilograms'],['a bicycle','kilograms'],['a dog','kilograms'],['a strawberry','grams']]);return mk(g,`Which unit would you use to measure the mass of ${o[0]}?`,o[1],[o[1]==='grams'?'kilograms':'grams','liters','meters'],'3.MD.A.2',`${o[0][0].toUpperCase()+o[0].slice(1)} is best measured in ${o[1]}.`)},
+ g=>{const A=R(g,3,9),B=R(g,3,9);return mk(g,`Each box holds ${A} liters of water. There are ${B} boxes. How many liters is that in all?`,`${A*B} liters`,[`${A+B} liters`,`${A*B+A} liters`,`${A*B-B} liters`],'3.MD.A.2',`${A} × ${B} = ${A*B}.`)}
+],
+[ /* May */
+ g=>{const W=R(g,2,8),L=R(g,3,9);return mk(g,`A rectangle has an area of ${L*W} square units. Its length is ${L} units. What is its width?`,`${W} units`,[`${W+1} units`,`${W-1>0?W-1:W+2} units`,`${L+W} units`],'3.MD.C.7',`${L} × ${W} = ${L*W}, so the width is ${W}.`)},
+ g=>{const S=pick(g,[3,5,6,7,8,9,10,11,12]);return mk(g,`A square has sides that are ${S} units long. What is its perimeter?`,`${4*S} units`,[`${S*S} units`,`${2*S} units`,`${S+4} units`],'3.MD.D.8',`${S} + ${S} + ${S} + ${S} = ${4*S}.`)},
+ g=>{const e=pick(g,[2,5,10]),n=R(g,3,9);return mk(g,`In a picture graph, each ☺ stands for ${e} students. Soccer has ${n} ☺. How many students chose soccer?`,n*e,[n+e,n,n*e+e,n*e-e],'3.MD.B.3',`${n} × ${e} = ${n*e}.`)}
+]
+];
+
+
+/* ---------- merge the full-year banks ---------- */
+RPX.forEach((a,l)=>{RP[l]=RP[l].concat(a)});
+VBX.forEach((a,l)=>{const have=new Set(VB[l].map(w=>w[0]));a.forEach(w=>{if(!have.has(w[0])){have.add(w[0]);VB[l].push(w)}})});
+MGX.forEach((a,l)=>{MG[l]=MG[l].concat(a)});
+MLAB[0].push('Word problems (add)','Compare numbers','Expanded form');
+MLAB[1].push('Arrays','Multiply by 2 and 5','Number sentences');
+MLAB[2].push('Multiply by 10','Divide by 5','Missing factor');
+MLAB[3].push('Multiply by 3 and 4 (facts)','Fact families','Division stories');
+MLAB[4].push('Estimate by rounding','Two-step (buy more)','Multiples of 10');
+MLAB[5].push('Fractions on a number line','Denominator','Unit fractions');
+MLAB[6].push('Equal to 1/2','Same numerator','Equivalent fractions');
+MLAB[7].push('Liquid volume','Choose the unit','Volume in boxes');
+MLAB[8].push('Missing side','Perimeter of a square','Picture graph');
+
+/* ---------- RAPID FACTS ---------- */
+const FACTORS=[[2],[2,10],[2,5,10],[2,3,4,5,10],[2,3,4,5,6,10],[2,3,4,5,6,7,10],[2,3,4,5,6,7,8,10],[2,3,4,5,6,7,8,9,10],[2,3,4,5,6,7,8,9,10]];
+const factOps=L=>L===0?['+','-']:L<3?['+','-','×']:['+','-','×','÷'];
+function factItem(g,L,cfg){
+  const ops=(cfg.ops&&cfg.ops.length)?cfg.ops:factOps(L);
+  const f=(cfg.factors&&cfg.factors.length)?cfg.factors:FACTORS[L];
+  const op=pick(g,ops);let q,ans,w;
+  if(op==='+'){const a=R(g,1,9),b=R(g,1,9);q=`${a} + ${b}`;ans=a+b;w=[ans+1,ans-1,ans+2,ans-2,ans+10]}
+  else if(op==='-'){const a=R(g,5,18),b=R(g,1,Math.min(9,a-1));q=`${a} − ${b}`;ans=a-b;w=[ans+1,ans-1,ans+2,ans-2,ans+10]}
+  else if(op==='×'){const a=pick(g,f),b=R(g,2,L>=7?10:9);q=`${a} × ${b}`;ans=a*b;w=[ans+a,ans-a,ans+1,ans-1,ans+b]}
+  else{const a=pick(g,f),b=R(g,2,9);q=`${a*b} ÷ ${a}`;ans=b;w=[b+1,b-1,b+2,b-2,a]}
+  return Object.assign({type:'fact',q,exp:`${q} = ${ans}`},mc(g,ans,w));
+}
+
+/* ---------- build the day ---------- */
+const SEC={
+ reading:{n:'Reading',e:'📖',c:'--read',d:'Read the story. Then answer 3 questions about it.'},
+ math:{n:'Math',e:'🧮',c:'--math',d:'Solve 3 math problems. Take your time and think it through.'},
+ vocab:{n:'Vocabulary',e:'🔤',c:'--vocab',d:'Pick the best meaning for each word.'},
+ facts:{n:'Rapid Math Facts',e:'⚡',c:'--facts',d:''},
+ fun:{n:'Fun Questions',e:'🔬',c:'--fun',d:'Show what you know about science and reading!'}
+};
+const ORDER=['reading','math','vocab','facts','fun'];
+const DEF={on:{reading:true,math:true,vocab:true,facts:true,fun:true},level:'auto',passage:'auto',mathSkill:'auto',fCount:10,timer:3,ops:[],factors:[]};
+function planFor(ds){return Object.assign({},DEF,S.defaults||{},S.plans[ds]||{},{on:Object.assign({},DEF.on,(S.plans[ds]||{}).on||{})})}
+function buildDay(ds){
+  const plan=planFor(ds),L=plan.level==='auto'?autoLevel(ds):+plan.level,secs=[];
+  ORDER.forEach(k=>{
+    if(!plan.on[k])return;let items=[];
+    if(k==='reading'){
+      let l=L,i=dayNum(ds)%RP[L].length;
+      if(plan.passage&&plan.passage!=='auto'){[l,i]=plan.passage.split('-').map(Number)}
+      const p=RP[l][i],g=rngFor(ds+'r');
+      items=p.q.map(x=>{const m=mc(g,x[1],[x[2],x[3],x[4]]);return{type:'mc',passage:{t:p.t,x:p.x},q:x[0],ch:m.ch,a:m.a,exp:''}});
+    }else if(k==='math'){
+      if(plan.mathSkill&&plan.mathSkill!=='auto'){const[l,i]=plan.mathSkill.split('-').map(Number);for(let n=0;n<3;n++)items.push(MG[l][i](rngFor(ds+'m'+n)))}
+      else{
+        const g=rngFor(ds+'mp'),order=shuffle(g,MG[L].map((_,i)=>i));
+        items.push(MG[L][order[0]](rngFor(ds+'m0')),MG[L][order[1]](rngFor(ds+'m1')));
+        if(L>0){const l2=R(g,0,L-1),i2=R(g,0,MG[l2].length-1);items.push(MG[l2][i2](rngFor(ds+'m2')))}
+        else items.push(MG[L][order[2]](rngFor(ds+'m2')));
+      }
+    }else if(k==='vocab'){
+      const g=rngFor(ds+'v'),pool=VB.flat();
+      items=shuffle(g,VB[L]).slice(0,3).map(w=>{
+        const wr=shuffle(g,pool.filter(p=>p[0]!==w[0]&&p[1]!==w[1])).slice(0,3).map(p=>p[1]);
+        const m=mc(g,w[1],wr);return{type:'mc',q:`What does the word “${w[0]}” mean?`,ch:m.ch,a:m.a,exp:`“${w[0]}” means ${w[1]}.`}});
+    }else if(k==='facts'){
+      for(let i=0;i<(+plan.fCount||10);i++)items.push(factItem(Math.random,L,plan));
+    }else if(k==='fun'){
+      const g=rngFor(ds+'f');
+      items=shuffle(g,FBM[L]).slice(0,3).map(x=>{const m=mc(g,x[1],[x[2],x[3],x[4]]);return{type:'mc',q:x[0],ch:m.ch,a:m.a,exp:`The answer is ${x[1]}.`}});
+    }
+    secs.push({key:k,items});
+  });
+  return{L,plan,secs};
+}
+
+/* ---------- state + views ---------- */
+let V='home',selName='',typed='',ST=null,TU=false,TT='plan',TP={date:todayStr()},pinMsg='';
+load();
+
+function draw(){
+  if(ST&&ST.tmo){clearTimeout(ST.tmo);ST.tmo=null}
+  const a=$('#app');
+  a.innerHTML=({home:homeH,intro:introH,q:qH,done:doneH,tpin:tpinH,teacher:teacherH})[V]();
+  window.scrollTo(0,0);
+  if(V==='q'&&ST.cur.type==='fact')startFactTimer();
+}
+
+let joinMsg='';
+function homeH(){
+  const ds=todayStr(),L=autoLevel(ds),p=planFor(ds),lv=p.level==='auto'?L:+p.level;
+  const chips=S.roster.map(n=>`<button class="chip ${selName===n?'on':''}" onclick="pickName(${JSON.stringify(n).replace(/"/g,'&quot;')})">${esc(n)}</button>`).join('');
+  const exp=expired()?`<div class="card" style="border-color:var(--bad)"><h3>This edition has ended</h3><p>The ${EDITION.name} was licensed through ${new Date(EDITION.expires+'T12:00:00').toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}. ${esc(EDITION.renew)}</p></div>`:'';
+  const jb=joinMsg?`<div class="card" style="border-color:var(--ok);background:var(--okbg)"><b>You joined ${esc(joinMsg)}.</b> Tap your name below to start.</div>`:'';
+  return exp+jb+`<div class="center" style="margin:10px 0 18px"><div class="big">🌅</div><h1>Morning Work</h1>${S.className?`<p><b>${esc(S.className)}</b></p>`:''}<p class="mute">Third Grade · ${new Date(ds+'T12:00:00').toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</p><span class="pill">Today’s skills: ${MONTHS[lv]}</span></div>
+  <div class="card"><h2>Who is working today?</h2>
+   ${S.roster.length?`<div class="chips">${chips}</div>`:''}
+   <label class="f" for="nm">${S.roster.length?'Not on the list? Type your name':'Type your name'}</label>
+   <input id="nm" type="text" autocomplete="off" value="${esc(typed)}" oninput="typed=this.value;selName=''" placeholder="First name">
+   <div style="height:14px"></div>
+   <button class="btn block" onclick="go()">Let’s go!</button></div>
+  <div class="center"><button class="linkbtn" onclick="V='tpin';pinMsg='';draw()">Teacher area</button>
+  <p class="small mute">Morning Work · Grade 3 · ${EDITION.name}</p></div>`;
+}
+function pickName(n){selName=n;typed='';draw()}
+function go(){joinMsg='';if(expired()){alert('This edition has ended.');return}const n=(selName||typed||'').trim();if(!n){alert('Pick or type your name first.');return}startRun(n,todayStr(),true)}
+
+function startRun(name,ds,record){
+  const day=buildDay(ds);
+  if(!day.secs.length){alert('No sections are turned on for this day.');return}
+  const total=day.secs.reduce((s,x)=>s+x.items.length,0);
+  ST={name,ds,record,day,si:0,ii:0,done:0,total,score:{},missed:[],locked:false,cur:null,tmo:null};
+  day.secs.forEach(s=>ST.score[s.key]=[0,s.items.length]);
+  V='intro';draw();
+}
+const sec=()=>ST.day.secs[ST.si];
+function introH(){
+  const s=sec(),m=SEC[s.key];
+  const d=s.key==='facts'?`Answer as fast as you can! You only get <b>${+ST.day.plan.timer||3} seconds</b> for each one. Do it in your head. There are ${s.items.length} questions.`:m.d;
+  return `<div style="--accent:var(${m.c})"><div class="prog"><span style="width:${ST.done/ST.total*100}%"></span></div>
+  <div class="card center" style="padding:30px 18px"><div class="big">${m.e}</div><h1 style="color:var(${m.c})">${m.n}</h1><p>${d}</p><div style="height:10px"></div><button class="btn block" onclick="V='q';ST.ii=0;draw()">Start</button></div></div>`;
+}
+function qH(){
+  const s=sec(),it=s.items[ST.ii],m=SEC[s.key];ST.cur=it;ST.locked=false;
+  const head=`<div style="--accent:var(${m.c})"><div class="top"><span class="pill">${m.e} ${m.n}</span><span class="pill">${ST.ii+1} of ${s.items.length}</span></div><div class="prog"><span style="width:${ST.done/ST.total*100}%"></span></div>`;
+  if(it.type==='fact'){
+    return head+`<div class="card"><div class="tbar"><span id="tb"></span></div><div class="fact">${it.q} = ?</div><div class="facts-grid">${it.ch.map((c,i)=>`<button class="choice" data-i="${i}" onclick="choose(${i})">${esc(c)}</button>`).join('')}</div><div id="fb"></div></div></div>`;
+  }
+  return head+(it.passage?`<div class="passage"><h3>${esc(it.passage.t)}</h3>${esc(it.passage.x)}</div>`:'')+
+   `<div class="card"><div class="qtext">${esc(it.q)}</div><div class="choices">${it.ch.map((c,i)=>`<button class="choice" data-i="${i}" onclick="choose(${i})">${esc(c)}</button>`).join('')}</div><div id="fb"></div></div></div>`;
+}
+function startFactTimer(){
+  const secs=+ST.day.plan.timer||3,tb=$('#tb');
+  if(tb){tb.style.transition=`width ${secs}s linear`;requestAnimationFrame(()=>requestAnimationFrame(()=>{tb.style.width='0%'}))}
+  ST.tmo=setTimeout(()=>choose(-1),secs*1000);
+}
+const PRAISE=['Great job!','Nice work!','You got it!','Awesome!','Super smart!'];
+function choose(i){
+  if(ST.locked)return;ST.locked=true;
+  if(ST.tmo){clearTimeout(ST.tmo);ST.tmo=null}
+  const it=ST.cur,s=sec(),ok=i===it.a,btns=document.querySelectorAll('.choice');
+  btns.forEach(b=>b.disabled=true);
+  if(ok)ST.ok=true;
+  btns[it.a].classList.add('ok');
+  if(i>=0&&!ok)btns[i].classList.add('bad');
+  if(ok)ST.score[s.key][0]++;
+  else ST.missed.push({k:s.key,q:it.type==='fact'?it.q+' = ?':it.q,t:it.passage?it.passage.t:'',y:i>=0?it.ch[i]:'(time ran out)',c:it.ch[it.a]});
+  const tb=$('#tb');if(tb){tb.style.transition='none'}
+  ST.done++;
+  const fb=$('#fb');
+  if(it.type==='fact'){
+    fb.innerHTML=ok?'':`<div class="fb bad">${i===-1?'⏰ Time’s up! ':''}${esc(it.exp)}</div>`;
+    setTimeout(advance,ok?450:1300);
+  }else{
+    const ans=it.ch[it.a];
+    fb.innerHTML=`<div class="fb ${ok?'ok':'bad'}">${ok?'✅ '+PRAISE[Math.floor(Math.random()*PRAISE.length)]:'Not quite. The answer is: '+esc(ans)}${it.exp?`<div class="ex">${esc(it.exp)}</div>`:''}</div><div style="height:12px"></div><button class="btn block" onclick="advance()">Next</button>`;
+    fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+function advance(){
+  const s=sec();ST.ii++;
+  if(ST.ii>=s.items.length){
+    ST.si++;ST.ii=0;
+    if(ST.si>=ST.day.secs.length){finish();return}
+    V='intro';
+  }else V='q';
+  draw();
+}
+function finish(){
+  if(ST.record){S.results.push({name:ST.name,date:ST.ds,level:ST.day.L,s:ST.score,m:ST.missed.slice(0,40),ts:Date.now()});if(S.results.length>1500)S.results=S.results.slice(-1500);save()}
+  V='done';draw();
+}
+function missedH(list){
+  if(!list||!list.length)return '<p class="mute">No missed questions. Great work!</p>';
+  return list.map(x=>`<div class="miss"><div class="small mute">${SEC[x.k]?SEC[x.k].n:''}${x.t?' · '+esc(x.t):''}</div><div><b>${esc(x.q)}</b></div><div class="small">Your answer: <span style="color:var(--bad)">${esc(x.y)}</span> · Correct answer: <span style="color:var(--ok)">${esc(x.c)}</span></div></div>`).join('');
+}
+function doneH(){
+  let c=0,t=0;ST.day.secs.forEach(s=>{c+=ST.score[s.key][0];t+=ST.score[s.key][1]});
+  const pct=t?c/t:0,stars=pct>=.85?3:pct>=.6?2:1;
+  const msg=pct>=.85?'Outstanding work today!':pct>=.6?'Good work! Keep practicing.':'Nice try! Every day makes you stronger.';
+  return `<div class="card center" style="padding:28px 18px"><div class="stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div><h1>${esc(ST.name)}, you finished!</h1><p>${msg}</p><p class="mute">${c} of ${t} correct${ST.record?'':' (preview, not saved)'}</p></div>
+  <div class="card">${ST.day.secs.map(s=>`<div class="score"><span>${SEC[s.key].e} ${SEC[s.key].n}</span><b style="color:var(${SEC[s.key].c})">${ST.score[s.key][0]} / ${ST.score[s.key][1]}</b></div>`).join('')}</div>
+  <div class="card"><h3>Questions to review</h3>${ST.record?'<p class="small mute">Raise your hand and show your teacher this screen before you tap Done.</p>':''}${missedH(ST.missed)}</div>
+  ${ST.record&&!storageOK?'<div class="note" style="margin-bottom:14px">This device could not save your score. Show your teacher this screen.</div>':''}
+  <button class="btn block" onclick="V=${ST.record?"'home'":"'teacher'"};selName='';typed='';draw()">${ST.record?'Done':'Back to teacher area'}</button>`;
+}
+
+/* ---------- QR join ---------- */
+function qrSvg(text,ec){
+  const q=qrcode(0,ec||'M');q.addData(text);q.make();
+  const n=q.getModuleCount(),m=4,sz=n+m*2;let p='';
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))p+=`M${c+m},${r+m}h1v1h-1z`;
+  return `<svg viewBox="0 0 ${sz} ${sz}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR code for students to join" style="width:100%;height:auto;display:block"><rect width="${sz}" height="${sz}" fill="#fff"/><path d="${p}" fill="#000"/></svg>`;
+}
+const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)))}
+function baseURL(){if(S.hostURL)return S.hostURL.split('#')[0];if(location.protocol==='file:')return'';return location.href.split('#')[0]}
+function joinPayload(level){
+  const o={v:1,c:S.className||''};
+  if(level<2)o.r=S.roster;
+  if(level<1){const t=todayStr(),p={};Object.keys(S.plans).filter(k=>k>=t).sort().slice(0,30).forEach(k=>p[k]=S.plans[k]);if(Object.keys(p).length)o.p=p}
+  return b64e(JSON.stringify(o));
+}
+function joinLink(){
+  const b=baseURL();if(!b)return null;
+  let level=0,u=b+'#join='+joinPayload(0);
+  while(u.length>1000&&level<2){level++;u=b+'#join='+joinPayload(level)}
+  return{url:u,level,base:b};
+}
+function cleanPlan(p){
+  if(!p||typeof p!=='object')return null;const o={};
+  if(p.on&&typeof p.on==='object'){o.on={};ORDER.forEach(k=>{if(typeof p.on[k]==='boolean')o.on[k]=p.on[k]})}
+  if(p.level==='auto'||/^[0-8]$/.test(String(p.level)))o.level=String(p.level);
+  const ref=(v,A)=>{if(v==='auto')return'auto';const m=/^(\d)-(\d{1,2})$/.exec(String(v));return m&&A[+m[1]]&&A[+m[1]][+m[2]]?v:null};
+  const pa=ref(p.passage,RP),ma=ref(p.mathSkill,MG);if(pa)o.passage=pa;if(ma)o.mathSkill=ma;
+  if(Number.isFinite(+p.fCount))o.fCount=Math.max(3,Math.min(30,Math.round(+p.fCount)));
+  if(Number.isFinite(+p.timer))o.timer=Math.max(2,Math.min(15,Math.round(+p.timer)));
+  if(Array.isArray(p.ops))o.ops=['+','-','×','÷'].filter(x=>p.ops.includes(x));
+  if(Array.isArray(p.factors))o.factors=[2,3,4,5,6,7,8,9,10].filter(x=>p.factors.includes(x));
+  return o;
+}
+function tryJoin(){
+  const m=/[#&]join=([A-Za-z0-9_-]+)/.exec(location.hash||'');if(!m)return'';
+  try{
+    const o=JSON.parse(b64d(m[1]));if(!o||o.v!==1)return'';
+    if(typeof o.c==='string')S.className=o.c.slice(0,60);
+    if(Array.isArray(o.r))S.roster=o.r.filter(x=>typeof x==='string').map(x=>x.trim().slice(0,40)).filter(Boolean).slice(0,60);
+    if(o.p&&typeof o.p==='object')Object.keys(o.p).slice(0,40).forEach(k=>{if(/^\d{4}-\d{2}-\d{2}$/.test(k)){const c=cleanPlan(o.p[k]);if(c)S.plans[k]=c}});
+    save();try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+    return S.className||'your class';
+  }catch(e){return''}
+}
+function shareH(){
+  const jl=joinLink(),hv=S.hostURL||(location.protocol==='file:'?'':location.href.split('#')[0]);
+  const note=jl&&jl.level===1?'The daily plans were too long to fit in the QR, so it carries the class name and class list only.':jl&&jl.level===2?'The class list was too long to fit in the QR, so students will tap Let’s go and type their own names.':'';
+  return `<div class="card noprint"><h3>Where is this page hosted?</h3><p class="small mute">Students need a web address to reach this page. Paste the link of the hosted page here. If you opened this page from a web link, it is filled in for you.</p>
+  <input id="hu" type="text" inputmode="url" autocomplete="off" value="${esc(hv)}" placeholder="https://…"><div style="height:10px"></div>
+  <button class="btn sm" onclick="S.hostURL=$('#hu').value.trim();save();draw()">Save link</button></div>
+  ${jl?`<div class="card center qrposter"><h2>Scan to join${S.className?' '+esc(S.className):''}</h2>
+  <div style="max-width:340px;margin:12px auto;border:2px solid var(--line);border-radius:12px;overflow:hidden">${qrSvg(jl.url,jl.url.length>300?'L':'M')}</div>
+  <p>Use the camera on your Chromebook or tablet. No scanner? Type this link:</p><p style="font-weight:600;word-break:break-all">${esc(jl.base)}</p></div>
+  <div class="card noprint">${note?`<p class="small">${note}</p>`:''}<p class="small mute">Make a new QR any time you change the class list or the daily plan.</p>
+  <div class="row"><button class="btn sm" onclick="window.print()">Print the QR poster</button><button class="btn ghost" onclick="copyJoin()">Copy the join link</button></div><textarea id="jl" readonly style="margin-top:10px;min-height:70px" onclick="this.select()">${esc(jl.url)}</textarea></div>`
+  :`<div class="card noprint" style="border-color:var(--bad)"><h3>Host this page first</h3><p>This page is open from a file on this computer, so student devices cannot reach it. Put the file on a free web host, open the hosted link, then come back to this tab. The Guide tab explains how.</p></div>`}`;
+}
+function copyJoin(){const t=$('#jl');t.select();try{navigator.clipboard.writeText(t.value);alert('Link copied.')}catch(e){document.execCommand&&document.execCommand('copy');alert('Link copied.')}}
+
+/* ---------- teacher area ---------- */
+function tpinH(){
+  return `<div class="top"><button class="btn ghost" onclick="V='home';draw()">Back</button></div><div class="card"><h2>Teacher area</h2><label class="f" for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off" onkeydown="if(event.key==='Enter')checkPin()"><p class="small" style="color:var(--bad);margin-top:8px">${pinMsg}</p><button class="btn block" onclick="checkPin()">Open</button></div>`;
+}
+function checkPin(){if($('#pin').value===S.pin){TU=true;V='teacher';TP={date:todayStr()};draw()}else{pinMsg='That PIN is not right.';draw()}}
+function teacherH(){
+  if(!TU){V='tpin';return tpinH()}
+  const tabs=[['plan','Daily plan'],['roster','Students'],['share','Student QR'],['results','Results'],['guide','Guide'],['settings','Settings']];
+  return `<div class="top noprint"><h2 style="margin:0">Teacher area</h2><button class="btn ghost" onclick="TU=false;V='home';draw()">Close</button></div>
+  <div class="tabs noprint">${tabs.map(t=>`<button class="chip ${TT===t[0]?'on':''}" onclick="TT='${t[0]}';draw()">${t[1]}</button>`).join('')}</div>
+  ${({plan:planH,roster:rosterH,share:shareH,results:resultsH,guide:guideH,settings:settingsH})[TT]()}`;
+}
+const cb=(id,label,on)=>`<label class="cbl"><input type="checkbox" id="${id}" ${on?'checked':''}>${label}</label>`;
+function planH(){
+  const ds=TP.date,p=planFor(ds),auto=autoLevel(ds);
+  const lvOpts=`<option value="auto" ${p.level==='auto'?'selected':''}>Automatic (${MONTHS[auto]})</option>`+MONTHS.map((m,i)=>`<option value="${i}" ${p.level!=='auto'&&+p.level===i?'selected':''}>${m} skills</option>`).join('');
+  const pOpts=`<option value="auto">Automatic</option>`+RP.map((ps,l)=>`<optgroup label="${MONTHS[l]}">${ps.map((x,i)=>`<option value="${l}-${i}" ${p.passage===l+'-'+i?'selected':''}>${esc(x.t)}</option>`).join('')}</optgroup>`).join('');
+  const mOpts=`<option value="auto">Automatic (mixed skills)</option>`+MLAB.map((ls,l)=>`<optgroup label="${MONTHS[l]}">${ls.map((x,i)=>`<option value="${l}-${i}" ${p.mathSkill===l+'-'+i?'selected':''}>${x} (${MG[l][i](rngFor('x')).std})</option>`).join('')}</optgroup>`).join('');
+  return `<div class="card"><label class="f" for="pd" style="margin-top:0">Date</label><input type="date" id="pd" value="${ds}" onchange="TP.date=this.value||todayStr();draw()">
+   <p class="small mute" style="margin-top:8px">Anything you leave on Automatic follows the school year: easier skills in September, harder by May.</p>
+   <label class="f">Skill level</label><select id="pl">${lvOpts}</select>
+   <label class="f">Sections</label>
+   ${ORDER.map(k=>cb('on_'+k,SEC[k].e+' '+SEC[k].n,p.on[k])).join('')}
+   <label class="f">Reading passage</label><select id="pp">${pOpts}</select>
+   <label class="f">Math focus</label><select id="pm">${mOpts}</select>
+   <label class="f">Rapid math facts</label>
+   <div class="row"><div><span class="small mute">Questions</span><input type="number" id="fc" min="3" max="30" value="${+p.fCount||10}"></div><div><span class="small mute">Seconds each</span><input type="number" id="ft" min="2" max="15" value="${+p.timer||3}"></div></div>
+   <div style="margin-top:8px"><span class="small mute">Operations (none checked = automatic)</span>
+   <div class="row" style="gap:0 12px">${[['+','Add'],['-','Subtract'],['×','Multiply'],['÷','Divide']].map(o=>cb('op_'+o[0],o[1],(p.ops||[]).includes(o[0]))).join('')}</div></div>
+   <div style="margin-top:8px"><span class="small mute">Times tables (none checked = automatic)</span>
+   <div class="row" style="gap:0 12px">${[2,3,4,5,6,7,8,9,10].map(n=>cb('fa_'+n,n,(p.factors||[]).includes(n))).join('')}</div></div>
+   <div style="height:16px"></div>
+   <button class="btn block" onclick="savePlan(0)">Save for this day</button><div style="height:10px"></div>
+   <div class="row"><button class="btn ghost" onclick="savePlan(1)">Save for Mon–Fri of this week</button><button class="btn ghost" onclick="clearPlan()">Reset to automatic</button><button class="btn ghost" onclick="previewDay()">Preview</button></div>
+  </div>`;
+}
+function readPlan(){
+  const on={};ORDER.forEach(k=>on[k]=document.getElementById('on_'+k).checked);
+  return{on,level:$('#pl').value,passage:$('#pp').value,mathSkill:$('#pm').value,fCount:Math.max(3,Math.min(30,+$('#fc').value||10)),timer:Math.max(2,Math.min(15,+$('#ft').value||3)),
+    ops:['+','-','×','÷'].filter(o=>document.getElementById('op_'+o).checked),factors:[2,3,4,5,6,7,8,9,10].filter(n=>document.getElementById('fa_'+n).checked)};
+}
+function savePlan(week){
+  const p=readPlan();
+  if(week){const d=new Date(TP.date+'T12:00:00'),dow=(d.getDay()+6)%7,mon=addDays(TP.date,-dow);for(let i=0;i<5;i++)S.plans[addDays(mon,i)]=JSON.parse(JSON.stringify(p))}
+  else S.plans[TP.date]=p;
+  save();alert(week?'Saved for Monday to Friday of this week.':'Saved for '+TP.date+'.');draw();
+}
+function clearPlan(){delete S.plans[TP.date];save();draw()}
+function previewDay(){const p=readPlan(),old=S.plans[TP.date];S.plans[TP.date]=p;startRun('Preview',TP.date,false);if(old)S.plans[TP.date]=old;else delete S.plans[TP.date]}
+function rosterH(){
+  return `<div class="card"><h3>Student names</h3><p class="small mute">One name per line. Students pick their name on the home screen.</p><textarea id="ro">${esc(S.roster.join('\n'))}</textarea><div style="height:12px"></div><button class="btn block" onclick="saveRoster()">Save students</button></div>`;
+}
+function saveRoster(){S.roster=$('#ro').value.split('\n').map(x=>x.trim()).filter(Boolean);save();alert('Saved '+S.roster.length+' students.');draw()}
+let RF='all';
+function resultsH(){
+  const dates=[...new Set(S.results.map(r=>r.date))].sort().reverse();
+  const rs=S.results.filter(r=>RF==='all'||r.date===RF).slice().reverse().slice(0,150);
+  const f=r=>k=>r.s&&r.s[k]?`${r.s[k][0]}/${r.s[k][1]}`:'–';
+  const csv='Date,Student,Reading,Math,Vocab,Facts,Fun\n'+S.results.map(r=>{const g=f(r);return [r.date,'"'+String(r.name).replace(/"/g,'""')+'"',...ORDER.map(k=>'"'+g(k)+'"')].join(',')}).join('\n');
+  return `${storageOK?'':'<div class="note" style="border-color:var(--bad);margin-bottom:14px">Saving is blocked in this browser (private window or a restricted device), so scores are not being kept. Use the raise-your-hand routine in the Guide tab.</div>'}
+  <div class="card"><h3>Results on this device</h3>
+  <select onchange="RF=this.value;draw()" aria-label="Filter by date"><option value="all">All dates</option>${dates.map(d=>`<option value="${d}" ${RF===d?'selected':''}>${d}</option>`).join('')}</select>
+  <p class="small mute" style="margin-top:8px">Tap a student to see the questions they missed.</p>
+  ${rs.length?rs.map(r=>{const g=f(r);return `<details class="res"><summary><b>${esc(r.name)}</b> · ${r.date}<br>${ORDER.map(k=>SEC[k].e+' '+g(k)).join('&nbsp;&nbsp; ')}</summary><div style="padding-top:8px">${missedH(r.m||[])}</div></details>`}).join(''):'<p class="mute">No results on this device yet. They appear here after students finish.</p>'}</div>
+  ${S.results.length?`<div class="card"><h3>Copy all results (CSV)</h3><textarea readonly onclick="this.select()">${esc(csv)}</textarea></div>`:''}`;
+}
+function guideH(){
+  return `<div class="card guide"><button class="btn sm noprint" onclick="window.print()">Print this guide</button>
+  <h2 style="margin-top:14px">Morning Work Teacher Guide</h2><p class="mute">Grade 3 · ${EDITION.name}</p>
+  <h3>Set up (5 minutes, once)</h3>
+  <ol><li>Open the file in Chrome, Edge, or Safari on the device students will use. Bookmark it.</li>
+  <li>Tap <b>Teacher area</b> and enter the PIN (starts as 1234). Change it in <b>Settings</b>.</li>
+  <li>In <b>Students</b>, type your class list, one name per line, then save.</li>
+  <li>In <b>Settings</b>, add your class name.</li>
+  <li>Optional: use <b>Daily plan</b> to choose the day’s passage, math focus, or rapid-fact settings. Leave anything on Automatic and it follows the school year from easier in September to harder in May.</li></ol>
+  <h3>Get students on their Chromebooks</h3>
+  <ol><li>Chromebooks reach the page through a web address, so put this file on a free web host (for example GitHub Pages) and open the hosted link.</li>
+  <li>Open <b>Teacher area</b>, then <b>Student QR</b>. Print the poster or put it on your screen.</li>
+  <li>Students scan the QR with the Chromebook or tablet camera. It opens the page with your class name, class list, and daily plan already loaded.</li>
+  <li>If a device cannot scan, students type the short link shown under the QR. They can still type their own name, and Automatic content is the same on every device.</li>
+  <li>Make a new QR whenever you change the class list or a daily plan.</li></ol>
+  <h3>Daily routine (10–15 minutes)</h3>
+  <ol><li>Student taps their name, then <b>Let’s go!</b></li>
+  <li>They finish five parts in order: Reading, Math, Vocabulary, Rapid Math Facts, Fun Questions.</li>
+  <li>Rapid facts give about 3 seconds per question. They should answer in their head.</li></ol>
+  <h3>How you see scores and mistakes</h3>
+  <ul><li><b>On the student’s screen:</b> when a student finishes, the last screen shows their score for each part and a list of every question they missed with the correct answer. <b>Students raise their hand and show you this screen before tapping Done.</b> Do this whenever scores must be seen right away.</li>
+  <li><b>In the Results tab:</b> every finished session is saved on that device. Open Teacher area, then Results. Tap a student to see what they missed. You can filter by date and copy all results as a spreadsheet (CSV).</li>
+  <li><b>Different devices keep their own results.</b> If students use more than one device, open Settings on each device, copy the backup code, and on your main device paste it under <b>Add results from this code</b>.</li></ul>
+  <h3>When scores will not save</h3>
+  <p>Scores are saved in the browser on each device. They will not be saved in a private or guest window, or on devices that erase data when students sign out. They will also be gone if browsing data is cleared. In those cases the raise-your-hand routine still works, because the finish screen always shows the score and missed questions. Use <b>Settings, Back up</b> every so often.</p>
+  <h3>Student routine (read aloud on day one)</h3>
+  <ol><li>Tap your name.</li><li>Do your best work. Think before you tap.</li><li>When you finish, raise your hand.</li><li>Show your teacher your screen. Look at the questions you missed.</li><li>Tap Done.</li></ol>
+  <h3>Your license</h3>
+  <p>${EDITION.name}${EDITION.expires?' · valid through '+EDITION.expires:''}. One license per teacher. Please do not share or resell this file.</p>
+  <p class="small mute">Standards referenced: Common Core State Standards for Mathematics and English Language Arts, © 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved.</p></div>`;
+}
+function backupStr(){return JSON.stringify({v:1,className:S.className,hostURL:S.hostURL||'',roster:S.roster,plans:S.plans,defaults:S.defaults,results:S.results})}
+function settingsH(){
+  return `<div class="card"><h3>Class name</h3><input id="cn" type="text" value="${esc(S.className||'')}" placeholder="e.g., Ms. Rivera’s Class"><div style="height:10px"></div><button class="btn sm" onclick="S.className=$('#cn').value.trim();save();alert('Saved.');draw()">Save class name</button></div>
+  <div class="card"><h3>Change teacher PIN</h3><label class="f" for="np" style="margin-top:0">New PIN</label><input id="np" type="text" inputmode="numeric" maxlength="8"><div style="height:12px"></div><button class="btn sm" onclick="const v=$('#np').value.trim();if(v.length<3){alert('Use at least 3 characters.');return}S.pin=v;save();alert('PIN changed.');draw()">Save PIN</button></div>
+  <div class="card"><h3>Back up or move your data</h3><p class="small mute">Copy this code and keep it somewhere safe.</p><textarea readonly onclick="this.select()">${esc(backupStr())}</textarea>
+  <label class="f" for="imp">Paste a backup code from this or another device</label><textarea id="imp"></textarea><div style="height:10px"></div>
+  <div class="row"><button class="btn sm" onclick="importData('merge')">Add results from this code</button><button class="btn ghost" onclick="importData('restore')">Restore everything</button></div></div>
+  <div class="card"><h3>Start fresh</h3><p class="small mute">Use this at the start of a new year or class.</p><button class="btn ghost" onclick="resetAll()">Erase students, plans, and results</button></div>
+  <div class="note">${storageOK?'Saving is working on this device.':'Saving is blocked in this browser, so nothing will be kept.'} Plans, students, and results live in this browser on this device only.</div>`;
+}
+function importData(mode){
+  let o;try{o=JSON.parse($('#imp').value)}catch(e){alert('That code could not be read. Copy the whole backup code and try again.');return}
+  if(!o||!Array.isArray(o.results)){alert('That does not look like a backup code.');return}
+  const good=o.results.filter(r=>r&&typeof r.name==='string'&&r.s&&typeof r.ts==='number');
+  if(mode==='restore'){S.className=String(o.className||'');S.hostURL=String(o.hostURL||'');S.roster=Array.isArray(o.roster)?o.roster.map(String):[];S.plans=(o.plans&&typeof o.plans==='object')?o.plans:{};S.defaults=(o.defaults&&typeof o.defaults==='object')?o.defaults:{};S.results=good;save();alert('Restored.')}
+  else{const seen=new Set(S.results.map(r=>r.name+'|'+r.ts));let n=0;good.forEach(r=>{const k=r.name+'|'+r.ts;if(!seen.has(k)){seen.add(k);S.results.push(r);n++}});S.results.sort((a,b)=>a.ts-b.ts);save();alert('Added '+n+' results.')}
+  draw();
+}
+function resetAll(){if(confirm('Erase all students, plans, and results on this device?')){S.roster=[];S.plans={};S.defaults={};S.results=[];S.className='';S.hostURL='';save();draw()}}
+joinMsg=tryJoin();
+draw();
+</script>
+</body>
+</html>
